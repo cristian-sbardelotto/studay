@@ -6,7 +6,7 @@ export function Header() {
     <header className='border-b border-muted'>
       <div className='container px-4 py-7 flex items-center justify-between max-sm:flex-wrap'>
         <h1 className='text-3xl max-sm:text-2xl font-bold'>
-          Stu<span className='text-muted-foreground'>day</span>
+          stu<span className='text-muted-foreground'>day</span>
         </h1>
 
         <Button
