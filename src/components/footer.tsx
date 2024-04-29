@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className='border-t border-muted'>
       <div className='container px-4 py-7 flex items-center justify-between max-sm:flex-col max-sm:gap-3'>
-        <p className='text-muted-foreground'>
+        <p className='text-muted-foreground max-sm:text-center'>
           Made with 🧡 by{' '}
           <Button
             className='p-0 m-0 text-base'
@@ -18,10 +18,9 @@ export function Footer() {
               target='_blank'
               className='text-primary'
             >
-              Cristian Sbardelotto
+              Cristian Sbardelotto.
             </a>
           </Button>
-          .
         </p>
 
         <nav>
