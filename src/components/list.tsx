@@ -13,7 +13,7 @@ export function List() {
         </Button>
       </div>
 
-      <ul>
+      <ul className='flex flex-col gap-4'>
         <HomeWorkItem />
       </ul>
     </div>
