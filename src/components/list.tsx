@@ -19,6 +19,7 @@ export function List() {
           description='Prova relacionada ao conteúdo de variações de temperatura'
           priority='high'
           subject='Física'
+          deadline={new Date()}
         />
       </ul>
     </div>

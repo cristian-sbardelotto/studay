@@ -10,8 +10,10 @@ import {
 } from './ui/card';
 import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
+import { Separator } from './ui/separator';
 
 import { twMerge } from 'tailwind-merge';
+import { formatRelativeDate } from '@/utils/format-date';
 
 type Priority = 'low' | 'medium' | 'high';
 
@@ -20,6 +22,7 @@ type HomeWork = {
   description: string;
   subject: string;
   priority: Priority;
+  deadline: Date;
 };
 
 export function HomeWorkItem({
@@ -27,6 +30,7 @@ export function HomeWorkItem({
   description,
   subject,
   priority,
+  deadline,
 }: HomeWork) {
   const [isDone, setIsDone] = useState(false);
 
@@ -80,9 +84,25 @@ export function HomeWorkItem({
         </CardHeader>
 
         <CardFooter className='flex items-center justify-between'>
-          <p className={isDone ? 'line-through text-muted-foreground' : ''}>
-            Subject: <span className='text-muted-foreground'>{subject}</span>
-          </p>
+          <div className='flex items-center space-x-4 h-5'>
+            <p className={isDone ? 'line-through text-muted-foreground' : ''}>
+              Subject: <span className='text-muted-foreground'>{subject}</span>
+            </p>
+
+            <Separator orientation='vertical' />
+
+            <p className='text-muted-foreground text-sm'>
+              <span
+                className={twMerge(
+                  'text-primary',
+                  isDone && 'text-muted-foreground'
+                )}
+              >
+                Deadline:
+              </span>{' '}
+              {formatRelativeDate(deadline)}
+            </p>
+          </div>
 
           <div className='flex items-center gap-1.5 cursor-pointer'>
             <Checkbox
