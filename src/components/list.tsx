@@ -14,7 +14,12 @@ export function List() {
       </div>
 
       <ul className='flex flex-col gap-4'>
-        <HomeWorkItem />
+        <HomeWorkItem
+          title='Prova'
+          description='Prova relacionada ao conteúdo de variações de temperatura'
+          priority='high'
+          subject='Física'
+        />
       </ul>
     </div>
   );
