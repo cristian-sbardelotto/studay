@@ -4,10 +4,10 @@ import { List } from './components/list';
 
 export function App() {
   return (
-    <div className='h-full flex flex-col'>
+    <div className='h-full flex flex-col gap-12'>
       <Header />
 
-      <main className='mt-12 container max-w-[900px] flex-1 px-8'>
+      <main className='container max-w-[900px] flex-1 px-8'>
         <List />
       </main>
 

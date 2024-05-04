@@ -116,12 +116,7 @@ export function HomeWorkItem({
             id='done'
           />
 
-          <Label
-            htmlFor='done'
-            className='cursor-pointer max-md:w-full'
-          >
-            Done
-          </Label>
+          <Label>Done</Label>
         </div>
       </CardFooter>
     </Card>
