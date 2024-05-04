@@ -51,9 +51,8 @@ export function HomeWorkItem({
     <li>
       <Card
         className={twMerge(
-          'border-muted space-y-4 hover:bg-muted/15 hover:border-transparent transition-colors',
-          isDone &&
-            'border-emerald-500/20 bg-muted/25 hover:border-emerald-500/20'
+          'border-muted space-y-4 hover:bg-muted/25 hover:border-transparent transition-colors',
+          isDone && 'border-primary/15 bg-muted/25 hover:border-primary/15'
         )}
       >
         <CardHeader className='flex flex-row gap-4 justify-between items-start overflow-hidden whitespace-nowrap text-ellipsis'>
@@ -91,7 +90,12 @@ export function HomeWorkItem({
 
             <Separator orientation='vertical' />
 
-            <p className='text-muted-foreground text-sm'>
+            <p
+              className={twMerge(
+                'text-muted-foreground text-sm',
+                isDone && 'line-through'
+              )}
+            >
               <span
                 className={twMerge(
                   'text-primary',
