@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -9,15 +10,43 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './ui/dialog';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from './ui/form';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { Label } from './ui/label';
+
+import { z } from 'zod';
+import { createHomeWorkFormSchema as formSchema } from '../lib/zod/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 type CreateHomeworkProps = {
   children: ReactNode;
 };
 
 export function CreateHomework({ children }: CreateHomeworkProps) {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: '',
+      description: '',
+      subject: '',
+      priority: 'medium',
+      deadline: new Date(),
+      links: [],
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.table(values);
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -31,38 +60,81 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <form className='grid gap-4 py-4'>
-          <div className='grid grid-cols-4 items-center gap-4'>
-            <Label
-              htmlFor='name'
-              className='text-right'
-            >
-              Name
-            </Label>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className='grid gap-4 py-4'
+          >
+            <FormField
+              control={form.control}
+              name='title'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Title</FormLabel>
 
-            <Input
-              id='name'
-              className='col-span-3'
+                  <FormControl>
+                    <Input
+                      placeholder='Research'
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
 
-          <div className='grid grid-cols-4 items-center gap-4'>
-            <Label
-              htmlFor='username'
-              className='text-right'
-            >
-              Username
-            </Label>
+            <FormField
+              control={form.control}
+              name='description'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
 
-            <Input
-              id='username'
-              className='col-span-3'
+                  <FormControl>
+                    <Input
+                      placeholder='Research about surrealism'
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-        </form>
+
+            <FormField
+              control={form.control}
+              name='subject'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Subject</FormLabel>
+
+                  <FormControl>
+                    <Input
+                      placeholder='Arts'
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
 
         <DialogFooter>
-          <Button type='submit'>Create</Button>
+          <DialogClose>
+            <Button variant='destructive'>Cancel</Button>
+          </DialogClose>
+
+          <Button
+            type='submit'
+            onClick={form.handleSubmit(onSubmit)}
+          >
+            Create
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
