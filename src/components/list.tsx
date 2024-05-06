@@ -1,6 +1,8 @@
-import { PlusCircleIcon } from 'lucide-react';
 import { Button } from './ui/button';
 import { HomeWorkItem } from './homework-item';
+
+import { PlusCircleIcon } from 'lucide-react';
+import { CreateHomework } from './create-homework';
 
 const homeworks: {
   title: string;
@@ -40,9 +42,11 @@ export function List() {
       <div className='flex items-center justify-between'>
         <h2 className='text-3xl font-extrabold max-md:text-2xl'>My space</h2>
 
-        <Button className='gap-2 max-md:text-sm'>
-          <PlusCircleIcon size={16} /> New
-        </Button>
+        <CreateHomework>
+          <Button className='gap-2 max-md:text-sm'>
+            <PlusCircleIcon size={16} /> New
+          </Button>
+        </CreateHomework>
       </div>
 
       <ul className='flex flex-col gap-4'>
