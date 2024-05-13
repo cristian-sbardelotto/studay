@@ -18,6 +18,13 @@ import {
   FormLabel,
   FormMessage,
 } from './ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 
@@ -116,6 +123,45 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='priority'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Priority</FormLabel>
+
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                    >
+                      <SelectTrigger className='w-[180px]'>
+                        <SelectValue placeholder='Priority' />
+                      </SelectTrigger>
+
+                      <SelectContent>
+                        <SelectItem
+                          className='text-emerald-500'
+                          value='low'
+                        >
+                          low
+                        </SelectItem>
+
+                        <SelectItem value='medium'>medium</SelectItem>
+                        <SelectItem
+                          className='text-destructive'
+                          value='high'
+                        >
+                          high
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
 
                   <FormMessage />
                 </FormItem>
@@ -125,7 +171,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
         </Form>
 
         <DialogFooter>
-          <DialogClose>
+          <DialogClose asChild>
             <Button variant='destructive'>Cancel</Button>
           </DialogClose>
 
