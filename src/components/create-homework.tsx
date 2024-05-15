@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 
 import {
   Dialog,
@@ -44,6 +44,9 @@ type CreateHomeworkProps = {
 };
 
 export function CreateHomework({ children }: CreateHomeworkProps) {
+  const [links] = useState<string[]>([]);
+  const [currentLink, setCurrentLink] = useState('');
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,12 +55,19 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
       subject: '',
       priority: 'medium',
       deadline: undefined,
+      currentLink: '',
       links: [],
     },
   });
 
+  function addCurrentLink() {
+    links.push(currentLink);
+    setCurrentLink('');
+  }
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.table(values);
+    console.log(links);
   }
 
   return (
@@ -214,6 +224,39 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
                         />
                       </PopoverContent>
                     </Popover>
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='currentLink'
+              render={() => (
+                <FormItem>
+                  <FormLabel>
+                    Links{' '}
+                    <span className='text-muted-foreground'>(optional)</span>
+                  </FormLabel>
+
+                  <FormControl>
+                    <div className='flex gap-2'>
+                      <Input
+                        placeholder='https://something.com'
+                        value={currentLink}
+                        onChange={e => setCurrentLink(e.target.value)}
+                      />
+
+                      <Button
+                        type='button'
+                        variant='secondary'
+                        onClick={addCurrentLink}
+                      >
+                        Add
+                      </Button>
+                    </div>
                   </FormControl>
 
                   <FormMessage />
