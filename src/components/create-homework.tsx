@@ -27,11 +27,17 @@ import {
 } from './ui/select';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { Calendar } from './ui/calendar';
 
 import { z } from 'zod';
 import { createHomeWorkFormSchema as formSchema } from '../lib/zod/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+
+import { format } from 'date-fns';
+import { cn } from '@/utils';
+import { CalendarIcon } from 'lucide-react';
 
 type CreateHomeworkProps = {
   children: ReactNode;
@@ -45,7 +51,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
       description: '',
       subject: '',
       priority: 'medium',
-      deadline: new Date(),
+      deadline: undefined,
       links: [],
     },
   });
@@ -161,6 +167,53 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
                         </SelectItem>
                       </SelectContent>
                     </Select>
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='deadline'
+              rules={{ required: true }}
+              render={({ field }) => (
+                <FormItem className='flex flex-col gap-2'>
+                  <FormLabel>Deadline</FormLabel>
+
+                  <FormControl>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant='outline'
+                            className={cn(
+                              'pl-3 text-left font-normal',
+                              !field.value && 'text-muted-foreground'
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, 'PPP')
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className='ml-auto size-4 opacity-50' />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent
+                        className='w-auto p-0'
+                        align='start'
+                      >
+                        <Calendar
+                          mode='single'
+                          disabled={date => date < new Date()}
+                          selected={field.value}
+                          onSelect={field.onChange}
+                        />
+                      </PopoverContent>
+                    </Popover>
                   </FormControl>
 
                   <FormMessage />
