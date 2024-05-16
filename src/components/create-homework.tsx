@@ -44,8 +44,7 @@ type CreateHomeworkProps = {
 };
 
 export function CreateHomework({ children }: CreateHomeworkProps) {
-  const [links] = useState<string[]>([]);
-  const [currentLink, setCurrentLink] = useState('');
+  const [links, setLinks] = useState<string[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,14 +59,25 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
     },
   });
 
-  function addCurrentLink() {
-    links.push(currentLink);
-    setCurrentLink('');
-  }
+  // function addCurrentLink() {
+  //   links.push(currentLink);
+  //   setCurrentLink('');
+  // }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.table(values);
     console.log(links);
+  }
+
+  function handleAddLink(newValue: string) {
+    form.trigger('currentLink');
+
+    const fieldState = form.getFieldState('currentLink');
+    console.log(fieldState);
+    if (fieldState.error) return;
+
+    form.resetField('currentLink');
+    setLinks(previous => [...previous, newValue]);
   }
 
   return (
@@ -234,7 +244,8 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
             <FormField
               control={form.control}
               name='currentLink'
-              render={() => (
+              rules={{ required: false, shouldUnregister: true }}
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>
                     Links{' '}
@@ -245,14 +256,13 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
                     <div className='flex gap-2'>
                       <Input
                         placeholder='https://something.com'
-                        value={currentLink}
-                        onChange={e => setCurrentLink(e.target.value)}
+                        {...field}
                       />
 
                       <Button
                         type='button'
                         variant='secondary'
-                        onClick={addCurrentLink}
+                        onClick={() => handleAddLink(field.value!)}
                       >
                         Add
                       </Button>
