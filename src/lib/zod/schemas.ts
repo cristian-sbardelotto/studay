@@ -20,6 +20,10 @@ export const createHomeWorkFormSchema = z.object({
       'Start date must be in the future'
     ),
   priority: z.union([z.literal('low'), z.literal('medium'), z.literal('high')]),
-  currentLink: z.string().optional(),
+  currentLink: z
+    .string()
+    .url('This is not a valid URL!')
+    .optional()
+    .or(z.literal('')),
   links: z.string().url('This is not a valid URL!').optional().array(),
 });

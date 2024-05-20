@@ -76,7 +76,6 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
     form.trigger('currentLink');
 
     const fieldState = form.getFieldState('currentLink');
-    console.log(fieldState);
     if (fieldState.error) return;
 
     form.resetField('currentLink');
@@ -261,6 +260,10 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
                         placeholder='https://useful-link.com'
                         id='currentLink'
                         {...field}
+                        onChange={event => {
+                          field.onChange(event);
+                          form.trigger('currentLink');
+                        }}
                       />
 
                       <Button
