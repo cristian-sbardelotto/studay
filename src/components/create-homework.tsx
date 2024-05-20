@@ -87,8 +87,8 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
 
-      <DialogContent className='sm:max-w-[425px] border-muted'>
-        <DialogHeader>
+      <DialogContent className='sm:max-w-[425px] border-muted overflow-y-scroll max-h-screen'>
+        <DialogHeader className='max-sm:pt-10'>
           <DialogTitle>New homework</DialogTitle>
 
           <DialogDescription>
@@ -99,7 +99,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className='grid gap-4 py-4'
+            className='grid gap-4 py-4 max-sm:gap-1'
           >
             <FormField
               control={form.control}
@@ -281,7 +281,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
           </form>
         </Form>
 
-        <DialogFooter>
+        <DialogFooter className='max-sm:pb-10'>
           <DialogClose asChild>
             <Button variant='destructive'>Cancel</Button>
           </DialogClose>
