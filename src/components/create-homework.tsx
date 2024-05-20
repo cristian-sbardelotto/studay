@@ -30,13 +30,13 @@ import { Input } from './ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Calendar } from './ui/calendar';
 
-import { z } from 'zod';
 import { createHomeWorkFormSchema as formSchema } from '../lib/zod/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { format } from 'date-fns';
 import { cn } from '@/utils';
+import { FormFields } from '@/types';
 import { CalendarIcon } from 'lucide-react';
 
 type CreateHomeworkProps = {
@@ -46,7 +46,7 @@ type CreateHomeworkProps = {
 export function CreateHomework({ children }: CreateHomeworkProps) {
   const [links, setLinks] = useState<string[]>([]);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
@@ -59,14 +59,17 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
     },
   });
 
-  // function addCurrentLink() {
-  //   links.push(currentLink);
-  //   setCurrentLink('');
-  // }
+  function onSubmit(values: FormFields) {
+    const data: Omit<FormFields, 'currentLink'> = {
+      title: values.title,
+      description: values.description,
+      subject: values.subject,
+      priority: values.priority,
+      deadline: values.deadline,
+      links,
+    };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.table(values);
-    console.log(links);
+    console.table(data);
   }
 
   function handleAddLink(newValue: string) {
@@ -247,7 +250,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
               rules={{ required: false, shouldUnregister: true }}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabel htmlFor='currentLink'>
                     Links{' '}
                     <span className='text-muted-foreground'>(optional)</span>
                   </FormLabel>
@@ -255,7 +258,8 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
                   <FormControl>
                     <div className='flex gap-2'>
                       <Input
-                        placeholder='https://something.com'
+                        placeholder='https://useful-link.com'
+                        id='currentLink'
                         {...field}
                       />
 
@@ -263,6 +267,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
                         type='button'
                         variant='secondary'
                         onClick={() => handleAddLink(field.value!)}
+                        disabled={!field.value}
                       >
                         Add
                       </Button>
