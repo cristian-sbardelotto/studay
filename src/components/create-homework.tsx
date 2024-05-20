@@ -87,7 +87,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
 
-      <DialogContent className='sm:max-w-[425px] border-muted overflow-y-scroll max-h-screen'>
+      <DialogContent className='sm:max-w-[425px] border-muted overflow-y-scroll max-h-screen scrollbar-hide'>
         <DialogHeader className='max-sm:pt-10'>
           <DialogTitle>New homework</DialogTitle>
 
