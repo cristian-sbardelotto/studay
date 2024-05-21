@@ -1,42 +1,15 @@
+import { useContext } from 'react';
+
 import { Button } from './ui/button';
 import { HomeWorkItem } from './homework-item';
+import { CreateHomework } from './create-homework';
+import { HomeworksContext } from '@/contexts/homeworks';
 
 import { PlusCircleIcon } from 'lucide-react';
-import { CreateHomework } from './create-homework';
-
-const homeworks: {
-  title: string;
-  description: string;
-  priority: 'low' | 'medium' | 'high';
-  subject: string;
-  deadline: Date;
-}[] = [
-  {
-    title: 'Prova',
-    description: 'Prova relacionada ao conteúdo de variações de temperatura',
-    priority: 'high',
-    subject: 'Física',
-    deadline: new Date(),
-  },
-  {
-    title: 'Trabalho',
-    description:
-      'Trabalho de pesquisa em dupla sobre o teorema de Pitágoras e sua criação',
-    priority: 'medium',
-    subject: 'Matematica',
-    deadline: new Date(),
-  },
-  {
-    title: 'Desenho',
-    description:
-      'Desenho que envolva conceitos como surrealismo, trabalhados em aula',
-    priority: 'low',
-    subject: 'Física',
-    deadline: new Date(),
-  },
-];
 
 export function List() {
+  const homeworks = useContext(HomeworksContext);
+
   return (
     <div className='space-y-5'>
       <div className='flex items-center justify-between'>
