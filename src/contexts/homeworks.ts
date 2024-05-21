@@ -1,5 +1,15 @@
 import { createContext } from 'react';
 
+import { homeworksMock } from '@/data/homeworks-mock';
+
 import { Homework } from '@/types';
 
-export const HomeworksContext = createContext<Homework[]>([]);
+type HomeworksContextProps = {
+  homeworks: Homework[];
+  addHomework(homework: Homework): void;
+};
+
+export const HomeworksContext = createContext<HomeworksContextProps>({
+  homeworks: homeworksMock,
+  addHomework: () => {},
+});

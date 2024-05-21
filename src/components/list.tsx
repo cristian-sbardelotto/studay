@@ -8,7 +8,8 @@ import { HomeworksContext } from '@/contexts/homeworks';
 import { PlusCircleIcon } from 'lucide-react';
 
 export function List() {
-  const homeworks = useContext(HomeworksContext);
+  const { homeworks } = useContext(HomeworksContext);
+  console.log(homeworks);
 
   return (
     <div className='space-y-5'>
