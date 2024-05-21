@@ -27,6 +27,7 @@ import {
 } from './ui/select';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Calendar } from './ui/calendar';
 
@@ -100,24 +101,44 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
             onSubmit={form.handleSubmit(onSubmit)}
             className='grid gap-4 py-4 max-sm:gap-1'
           >
-            <FormField
-              control={form.control}
-              name='title'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Title</FormLabel>
+            <div className='flex gap-3'>
+              <FormField
+                control={form.control}
+                name='title'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title</FormLabel>
 
-                  <FormControl>
-                    <Input
-                      placeholder='Research'
-                      {...field}
-                    />
-                  </FormControl>
+                    <FormControl>
+                      <Input
+                        placeholder='Research'
+                        {...field}
+                      />
+                    </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='subject'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Subject</FormLabel>
+
+                    <FormControl>
+                      <Input
+                        placeholder='Arts'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}
@@ -127,30 +148,13 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
                   <FormLabel>Description</FormLabel>
 
                   <FormControl>
-                    <Input
+                    <Textarea
                       placeholder='Research about surrealism'
+                      className='resize-none'
                       {...field}
                     />
                   </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name='subject'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Subject</FormLabel>
-
-                  <FormControl>
-                    <Input
-                      placeholder='Arts'
-                      {...field}
-                    />
-                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -173,20 +177,9 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
                       </SelectTrigger>
 
                       <SelectContent>
-                        <SelectItem
-                          className='text-emerald-500'
-                          value='low'
-                        >
-                          low
-                        </SelectItem>
-
+                        <SelectItem value='low'>low</SelectItem>
                         <SelectItem value='medium'>medium</SelectItem>
-                        <SelectItem
-                          className='text-destructive'
-                          value='high'
-                        >
-                          high
-                        </SelectItem>
+                        <SelectItem value='high'>high</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -202,7 +195,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
               rules={{ required: true }}
               render={({ field }) => (
                 <FormItem className='flex flex-col gap-2'>
-                  <FormLabel>Deadline</FormLabel>
+                  <FormLabel className='w-fit'>Deadline</FormLabel>
 
                   <FormControl>
                     <Popover>
