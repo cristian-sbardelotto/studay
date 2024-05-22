@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useContext, useState } from 'react';
 
 import {
   Dialog,
@@ -37,7 +37,10 @@ import { useForm } from 'react-hook-form';
 
 import { format } from 'date-fns';
 import { cn } from '@/utils';
-import { FormFields } from '@/types';
+import { FormFields, Homework } from '@/types';
+import { HomeworksContext } from '@/contexts/homeworks';
+import { v4 as randomUUID } from 'uuid';
+
 import { CalendarIcon } from 'lucide-react';
 
 type CreateHomeworkProps = {
@@ -46,6 +49,8 @@ type CreateHomeworkProps = {
 
 export function CreateHomework({ children }: CreateHomeworkProps) {
   const [links, setLinks] = useState<string[]>([]);
+
+  const { addHomework } = useContext(HomeworksContext);
 
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
@@ -61,16 +66,18 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
   });
 
   function onSubmit(values: FormFields) {
-    const data: Omit<FormFields, 'currentLink'> = {
+    const data: Homework = {
+      id: randomUUID(),
       title: values.title,
       description: values.description,
       subject: values.subject,
       priority: values.priority,
       deadline: values.deadline,
+      done: false,
       links,
     };
 
-    console.table(data);
+    addHomework(data);
   }
 
   function handleAddLink(newValue: string) {
