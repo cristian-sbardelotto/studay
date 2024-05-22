@@ -49,6 +49,7 @@ type CreateHomeworkProps = {
 
 export function CreateHomework({ children }: CreateHomeworkProps) {
   const [links, setLinks] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { addHomework } = useContext(HomeworksContext);
 
@@ -66,6 +67,8 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
   });
 
   function onSubmit(values: FormFields) {
+    setIsLoading(true);
+
     const data: Homework = {
       id: randomUUID(),
       title: values.title,
@@ -78,6 +81,10 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
     };
 
     addHomework(data);
+
+    form.reset();
+
+    setIsLoading(false);
   }
 
   function handleAddLink(newValue: string) {
@@ -292,6 +299,8 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
           <Button
             type='submit'
             onClick={form.handleSubmit(onSubmit)}
+            disabled={isLoading}
+            isLoading={isLoading}
           >
             Create
           </Button>
