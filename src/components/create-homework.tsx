@@ -85,6 +85,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
     form.reset();
 
     setIsLoading(false);
+    handleCloseDialog();
   }
 
   function handleAddLink(newValue: string) {
@@ -95,6 +96,13 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
 
     form.resetField('currentLink');
     setLinks(previous => [...previous, newValue]);
+  }
+
+  function handleCloseDialog() {
+    const closeButton = document.querySelector(
+      'button[data-close-modal]'
+    ) as HTMLButtonElement;
+    closeButton.click();
   }
 
   return (
@@ -269,7 +277,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
                         {...field}
                         onChange={event => {
                           field.onChange(event);
-                          form.trigger('currentLink');
+                          form.trigger(field.name);
                         }}
                       />
 
@@ -293,7 +301,12 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
 
         <DialogFooter className='max-sm:pb-10'>
           <DialogClose asChild>
-            <Button variant='destructive'>Cancel</Button>
+            <Button
+              variant='destructive'
+              data-close-modal
+            >
+              Cancel
+            </Button>
           </DialogClose>
 
           <Button
