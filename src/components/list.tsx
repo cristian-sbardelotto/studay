@@ -25,7 +25,7 @@ export function List() {
 
       <ul className='flex flex-col gap-4'>
         {homeworks.map(homework => (
-          <li key={homework.description}>
+          <li key={homework.id}>
             <HomeWorkItem {...homework} />
           </li>
         ))}
