@@ -37,13 +37,14 @@ import { useForm } from 'react-hook-form';
 
 import { format } from 'date-fns';
 import { cn } from '@/utils';
+import { removeSpaces } from '@/utils/remove-spaces';
+import { closeDialog } from '@/utils/close-dialog';
 import { FormFields, Homework } from '@/types';
 import { HomeworksContext } from '@/contexts/homeworks';
 import { v4 as randomUUID } from 'uuid';
 import { toast } from 'sonner';
 
 import { CalendarIcon } from 'lucide-react';
-import { removeSpaces } from '@/utils/remove-spaces';
 
 type CreateHomeworkProps = {
   children: ReactNode;
@@ -87,7 +88,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
     form.reset();
 
     setIsLoading(false);
-    handleCloseDialog();
+    closeDialog();
   }
 
   function handleRemoveLink(link: string) {
@@ -118,12 +119,6 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
   }
 
   // TODO: MOVE TO UTILS FOLDER
-  function handleCloseDialog() {
-    const closeButton = document.querySelector(
-      'button[data-close-modal]'
-    ) as HTMLButtonElement;
-    closeButton.click();
-  }
 
   return (
     <Dialog>
