@@ -72,28 +72,24 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
   function onSubmit(values: FormFields) {
     setIsLoading(true);
 
-    const data: Homework = {
-      id: randomUUID(),
-      title: values.title,
-      description: values.description,
-      subject: values.subject,
-      priority: values.priority,
-      deadline: values.deadline,
-      done: false,
-      links,
-    };
+    setTimeout(() => {
+      const data: Homework = {
+        id: randomUUID(),
+        title: values.title,
+        description: values.description,
+        subject: values.subject,
+        priority: values.priority,
+        deadline: values.deadline,
+        done: false,
+        links,
+      };
 
-    addHomework(data);
+      addHomework(data);
 
-    form.reset();
-
-    setIsLoading(false);
-    closeDialog();
-  }
-
-  function handleRemoveLink(link: string) {
-    const newLinks = links.filter(item => item !== link);
-    setLinks(newLinks);
+      form.reset();
+      setIsLoading(false);
+      closeDialog();
+    }, 1000); // 1 second
   }
 
   function handleAddLink(newLink: string) {
@@ -118,7 +114,10 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
     });
   }
 
-  // TODO: MOVE TO UTILS FOLDER
+  function handleRemoveLink(link: string) {
+    const newLinks = links.filter(item => item !== link);
+    setLinks(newLinks);
+  }
 
   return (
     <Dialog>
@@ -340,7 +339,7 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
             disabled={isLoading}
             isLoading={isLoading}
           >
-            Create
+            {!isLoading ? 'Create' : 'Wait...'}
           </Button>
         </DialogFooter>
       </DialogContent>
