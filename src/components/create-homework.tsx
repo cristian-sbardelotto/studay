@@ -89,6 +89,12 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
       form.reset();
       setIsLoading(false);
       closeDialog();
+
+      toast.success('Homework created successfully!', {
+        position: 'top-center',
+        dismissible: true,
+        duration: 3000, // 3 seconds
+      });
     }, 1000); // 1 second
   }
 
