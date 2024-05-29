@@ -40,8 +40,10 @@ import { cn } from '@/utils';
 import { FormFields, Homework } from '@/types';
 import { HomeworksContext } from '@/contexts/homeworks';
 import { v4 as randomUUID } from 'uuid';
+import { toast } from 'sonner';
 
 import { CalendarIcon } from 'lucide-react';
+import { removeSpaces } from '@/utils/remove-spaces';
 
 type CreateHomeworkProps = {
   children: ReactNode;
@@ -88,16 +90,34 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
     handleCloseDialog();
   }
 
-  function handleAddLink(newValue: string) {
+  function handleRemoveLink(link: string) {
+    const newLinks = links.filter(item => item !== link);
+    setLinks(newLinks);
+  }
+
+  function handleAddLink(newLink: string) {
     form.trigger('currentLink');
 
     const fieldState = form.getFieldState('currentLink');
     if (fieldState.error) return;
 
     form.resetField('currentLink');
-    setLinks(previous => [...previous, newValue]);
+
+    const formattedNewLink = removeSpaces(newLink);
+    setLinks(previous => [...previous, formattedNewLink]);
+
+    toast.success(`Successfully added.`, {
+      description: `Link ${formattedNewLink} was added.`,
+      dismissible: true,
+      duration: 3000, // 3 seconds
+      action: {
+        label: 'Undo',
+        onClick: () => handleRemoveLink(newLink),
+      },
+    });
   }
 
+  // TODO: MOVE TO UTILS FOLDER
   function handleCloseDialog() {
     const closeButton = document.querySelector(
       'button[data-close-modal]'
@@ -109,7 +129,17 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
 
-      <DialogContent className='sm:max-w-[425px] border-muted overflow-y-scroll max-h-screen scrollbar-hide'>
+      <DialogContent
+        onPointerDownOutside={e => {
+          // don't dismiss dialog when clicking inside the toast
+          if (
+            e.target instanceof Element &&
+            e.target.closest('[data-sonner-toast]')
+          )
+            e.preventDefault();
+        }}
+        className='sm:max-w-[425px] border-muted overflow-y-scroll max-h-screen scrollbar-hide'
+      >
         <DialogHeader className='max-sm:pt-10'>
           <DialogTitle>New homework</DialogTitle>
 
