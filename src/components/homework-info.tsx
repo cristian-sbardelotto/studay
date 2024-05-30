@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import {
@@ -6,18 +7,23 @@ import {
   DialogDescription,
   DialogTitle,
   DialogFooter,
+  DialogClose,
 } from './ui/dialog';
 
 import { Homework, Priority } from '@/types';
 import { formatDate } from '@/utils/format-date';
+import { HomeworksContext } from '@/contexts/homeworks';
 
 import { SquarePenIcon, Trash2Icon } from 'lucide-react';
+import { closeDialog } from '@/utils/close-dialog';
 
 type HomeworkInfoProps = {
   homework: Homework;
 };
 
 export function HomeworkInfo({ homework }: HomeworkInfoProps) {
+  const { deleteHomework } = useContext(HomeworksContext);
+
   const badgeVariantDictionary: Record<
     Priority,
     'success' | 'secondary' | 'destructive'
@@ -26,6 +32,11 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
     medium: 'secondary',
     high: 'destructive',
   };
+
+  function handleDeleteHomework(id: string) {
+    deleteHomework(id);
+    closeDialog();
+  }
 
   return (
     <DialogContent className='border-muted outline-none'>
@@ -85,8 +96,10 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
             <Button
               className='px-3 max-sm:flex-1'
               variant='destructive'
+              onClick={() => handleDeleteHomework(homework.id)}
             >
               <Trash2Icon size={16} />
+              <span className='sr-only'>Delete</span>
             </Button>
 
             <Button
@@ -96,6 +109,15 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
               Mark as done
             </Button>
           </div>
+
+          <DialogClose asChild>
+            <Button
+              className='sr-only'
+              data-close-modal
+            >
+              Close Dialog
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </div>
     </DialogContent>

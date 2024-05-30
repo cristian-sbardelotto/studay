@@ -7,9 +7,11 @@ import { Homework } from '@/types';
 type HomeworksContextProps = {
   homeworks: Homework[];
   addHomework(homework: Homework): void;
+  deleteHomework(id: string): void;
 };
 
 export const HomeworksContext = createContext<HomeworksContextProps>({
   homeworks: homeworksMock,
-  addHomework: () => {},
+  addHomework: function () {},
+  deleteHomework: function () {},
 });
