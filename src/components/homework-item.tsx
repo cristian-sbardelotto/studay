@@ -1,4 +1,4 @@
-import { LegacyRef, forwardRef, useState } from 'react';
+import { LegacyRef, forwardRef } from 'react';
 
 import { Badge } from './ui/badge';
 import {
@@ -8,31 +8,18 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card';
-import { Checkbox } from './ui/checkbox';
-import { Label } from './ui/label';
 import { Separator } from './ui/separator';
 import { DialogTrigger } from './ui/dialog';
 
 import { twMerge } from 'tailwind-merge';
 import { formatRelativeDate } from '@/utils/format-date';
-import { Priority } from '@/types';
-
-type HomeWork = {
-  title: string;
-  description: string;
-  subject: string;
-  priority: Priority;
-  deadline: Date;
-};
+import { Homework, Priority } from '@/types';
 
 export const HomeworkItem = forwardRef(
-  ({ title, description, subject, priority, deadline }: HomeWork, ref) => {
-    const [isDone, setIsDone] = useState(false);
-
-    function toggleIsDone() {
-      setIsDone(previous => !previous);
-    }
-
+  (
+    { title, description, subject, priority, deadline, done }: Homework,
+    ref
+  ) => {
     const badgeVariantDictionary: Record<
       Priority,
       'success' | 'secondary' | 'destructive'
@@ -50,14 +37,14 @@ export const HomeworkItem = forwardRef(
         <Card
           className={twMerge(
             'border-muted space-y-4 hover:bg-muted/25 hover:border-transparent transition-colors cursor-pointer',
-            isDone && 'border-primary/15 bg-muted/25 hover:border-primary/15'
+            done && 'border-primary/15 bg-muted/25 hover:border-primary/15'
           )}
         >
           <CardHeader className='flex flex-row gap-4 justify-between items-start overflow-hidden whitespace-nowrap text-ellipsis max-md:p-3 max-md:pb-0'>
             <div
               className={twMerge(
                 'flex flex-col gap-1 overflow-hidden',
-                isDone && 'line-through text-muted-foreground'
+                done && 'line-through text-muted-foreground'
               )}
             >
               <CardTitle className='text-lg max-md:text-base'>
@@ -67,7 +54,7 @@ export const HomeworkItem = forwardRef(
               <CardContent
                 className={twMerge(
                   'p-0 text-muted-foreground overflow-hidden text-ellipsis max-md:text-sm',
-                  isDone && 'line-through text-muted-foreground'
+                  done && 'line-through text-muted-foreground'
                 )}
               >
                 {description}
@@ -87,7 +74,7 @@ export const HomeworkItem = forwardRef(
               <p
                 className={twMerge(
                   'max-md:text-sm',
-                  isDone && 'line-through text-muted-foreground'
+                  done && 'line-through text-muted-foreground'
                 )}
               >
                 Subject:{' '}
@@ -102,7 +89,7 @@ export const HomeworkItem = forwardRef(
               <p
                 className={twMerge(
                   'max-md:text-sm',
-                  isDone && 'line-through text-muted-foreground'
+                  done && 'line-through text-muted-foreground'
                 )}
               >
                 Deadline:{' '}
@@ -110,15 +97,6 @@ export const HomeworkItem = forwardRef(
                   {formatRelativeDate(deadline)}
                 </span>
               </p>
-            </div>
-
-            <div className='flex items-center gap-1.5 cursor-pointer rounded-xl max-md:w-full'>
-              <Checkbox
-                onCheckedChange={toggleIsDone}
-                id='done'
-              />
-
-              <Label>Done</Label>
             </div>
           </CardFooter>
         </Card>

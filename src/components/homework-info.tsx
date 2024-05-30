@@ -24,7 +24,7 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
   };
 
   return (
-    <DialogContent className='border-muted'>
+    <DialogContent className='border-muted outline-none'>
       <DialogHeader className='pr-4 flex flex-row gap-8 items-center space-y-0'>
         <DialogTitle>{homework.title}</DialogTitle>
 
@@ -49,16 +49,23 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
           <h4>Links</h4>
 
           <ul className='flex flex-col gap-0.5 text-muted-foreground'>
-            {homework.links?.map(link => (
-              <a
-                href={link}
-                target='_blank'
-                key={link}
-                className='underline-offset-4 hover:underline'
-              >
-                {link}
-              </a>
-            ))}
+            {homework.links ? (
+              homework.links.map(link => (
+                <a
+                  href={link}
+                  target='_blank'
+                  key={link}
+                  className='underline-offset-4 hover:underline w-fit'
+                >
+                  {link}
+                </a>
+              ))
+            ) : (
+              <p className='text-muted-foreground'>
+                This homework has no links. If you want to add some, please{' '}
+                <span className='text-foreground'>edit</span> the homework.
+              </p>
+            )}
           </ul>
         </div>
       </div>
