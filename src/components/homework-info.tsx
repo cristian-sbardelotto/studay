@@ -9,6 +9,7 @@ import {
   DialogFooter,
   DialogClose,
 } from './ui/dialog';
+import { Sheet, SheetTrigger } from './ui/sheet';
 
 import { Homework, Priority } from '@/types';
 import { formatDate } from '@/utils/format-date';
@@ -16,6 +17,7 @@ import { HomeworksContext } from '@/contexts/homeworks';
 
 import { SquarePenIcon, Trash2Icon } from 'lucide-react';
 import { closeDialog } from '@/utils/close-dialog';
+import { EditHomework } from './edit-homework';
 
 type HomeworkInfoProps = {
   homework: Homework;
@@ -90,12 +92,18 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
         </div>
 
         <DialogFooter className='flex sm:justify-between'>
-          <Button
-            className='gap-1 text-muted-foreground'
-            variant='ghost'
-          >
-            Edit <SquarePenIcon size={16} />
-          </Button>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                className='gap-1 text-muted-foreground'
+                variant='ghost'
+              >
+                Edit <SquarePenIcon size={16} />
+              </Button>
+            </SheetTrigger>
+
+            <EditHomework id={homework.id} />
+          </Sheet>
 
           <div className='flex gap-2'>
             <Button
