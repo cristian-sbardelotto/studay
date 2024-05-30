@@ -8,10 +8,12 @@ type HomeworksContextProps = {
   homeworks: Homework[];
   addHomework(homework: Homework): void;
   deleteHomework(id: string): void;
+  toggleIsDone(id: string): void;
 };
 
 export const HomeworksContext = createContext<HomeworksContextProps>({
   homeworks: homeworksMock,
   addHomework: function () {},
   deleteHomework: function () {},
+  toggleIsDone: function () {},
 });

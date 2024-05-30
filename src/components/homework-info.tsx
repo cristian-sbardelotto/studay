@@ -22,7 +22,7 @@ type HomeworkInfoProps = {
 };
 
 export function HomeworkInfo({ homework }: HomeworkInfoProps) {
-  const { deleteHomework } = useContext(HomeworksContext);
+  const { deleteHomework, toggleIsDone } = useContext(HomeworksContext);
 
   const badgeVariantDictionary: Record<
     Priority,
@@ -35,6 +35,11 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
 
   function handleDeleteHomework(id: string) {
     deleteHomework(id);
+    closeDialog();
+  }
+
+  function handleToggleIsDone(id: string) {
+    toggleIsDone(id);
     closeDialog();
   }
 
@@ -104,9 +109,10 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
 
             <Button
               className='max-sm:flex-1'
-              variant='success'
+              variant={homework.done ? 'default' : 'success'}
+              onClick={() => handleToggleIsDone(homework.id)}
             >
-              Mark as done
+              {homework.done ? 'Mark as pending' : 'Mark as done'}
             </Button>
           </div>
 

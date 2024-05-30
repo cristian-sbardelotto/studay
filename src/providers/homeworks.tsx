@@ -1,9 +1,9 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 import { HomeworksContext } from '@/contexts/homeworks';
 import { Homework } from '@/types';
 import { homeworksMock } from '@/data/homeworks-mock';
-import { toast } from 'sonner';
+import { sendGenericToastError } from '@/utils/send-generic-toast-error';
 
 type HomeworksContextProviderProps = {
   children: ReactNode;
@@ -28,14 +28,32 @@ export function HomeworksContextProvider({
       return;
     }
 
-    toast.error('Something went wrong!', {
-      description: 'Try again later.',
-    });
+    sendGenericToastError();
   }
+
+  function toggleIsDone(id: string) {
+    const doesHomeworkExist = homeworks.find(homework => homework.id === id);
+    if (!doesHomeworkExist) {
+      sendGenericToastError();
+      return;
+    }
+
+    const newHomeworks = homeworks.map(homework => {
+      if (homework.id === id) {
+        homework.done = !homework.done;
+      }
+
+      return homework;
+    });
+
+    setHomeworks(newHomeworks);
+  }
+
+  useEffect(() => console.log(homeworks), [homeworks]);
 
   return (
     <HomeworksContext.Provider
-      value={{ homeworks, addHomework, deleteHomework }}
+      value={{ homeworks, addHomework, deleteHomework, toggleIsDone }}
     >
       {children}
     </HomeworksContext.Provider>
