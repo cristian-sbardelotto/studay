@@ -1,13 +1,17 @@
 import { Badge } from './ui/badge';
+import { Button } from './ui/button';
 import {
   DialogHeader,
   DialogContent,
   DialogDescription,
   DialogTitle,
+  DialogFooter,
 } from './ui/dialog';
 
 import { Homework, Priority } from '@/types';
 import { formatDate } from '@/utils/format-date';
+
+import { SquarePenIcon, Trash2Icon } from 'lucide-react';
 
 type HomeworkInfoProps = {
   homework: Homework;
@@ -68,6 +72,31 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
             )}
           </ul>
         </div>
+
+        <DialogFooter className='flex sm:justify-between'>
+          <Button
+            className='gap-1 text-muted-foreground'
+            variant='ghost'
+          >
+            Edit <SquarePenIcon size={16} />
+          </Button>
+
+          <div className='flex gap-2'>
+            <Button
+              className='px-3 max-sm:flex-1'
+              variant='destructive'
+            >
+              <Trash2Icon size={16} />
+            </Button>
+
+            <Button
+              className='max-sm:flex-1'
+              variant='success'
+            >
+              Mark as done
+            </Button>
+          </div>
+        </DialogFooter>
       </div>
     </DialogContent>
   );
