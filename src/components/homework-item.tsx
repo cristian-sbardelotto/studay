@@ -11,12 +11,11 @@ import {
 import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
 import { Separator } from './ui/separator';
+import { DialogTrigger } from './ui/dialog';
 
 import { twMerge } from 'tailwind-merge';
 import { formatRelativeDate } from '@/utils/format-date';
-import { DialogTrigger } from './ui/dialog';
-
-type Priority = 'low' | 'medium' | 'high';
+import { Priority } from '@/types';
 
 type HomeWork = {
   title: string;
@@ -50,7 +49,7 @@ export const HomeworkItem = forwardRef(
       >
         <Card
           className={twMerge(
-            'border-muted space-y-4 hover:bg-muted/25 hover:border-transparent transition-colors',
+            'border-muted space-y-4 hover:bg-muted/25 hover:border-transparent transition-colors cursor-pointer',
             isDone && 'border-primary/15 bg-muted/25 hover:border-primary/15'
           )}
         >

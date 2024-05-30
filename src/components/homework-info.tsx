@@ -1,10 +1,67 @@
-import { DialogHeader, DialogContent, DialogDescription } from './ui/dialog';
+import { Badge } from './ui/badge';
+import {
+  DialogHeader,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from './ui/dialog';
 
-export function HomeworkInfo() {
+import { Homework, Priority } from '@/types';
+import { formatDate } from '@/utils/format-date';
+
+type HomeworkInfoProps = {
+  homework: Homework;
+};
+
+export function HomeworkInfo({ homework }: HomeworkInfoProps) {
+  const badgeVariantDictionary: Record<
+    Priority,
+    'success' | 'secondary' | 'destructive'
+  > = {
+    low: 'success',
+    medium: 'secondary',
+    high: 'destructive',
+  };
+
   return (
-    <DialogContent>
-      <DialogHeader>Title</DialogHeader>
-      <DialogDescription>Content</DialogDescription>
+    <DialogContent className='border-muted'>
+      <DialogHeader className='pr-4 flex flex-row gap-8 items-center space-y-0'>
+        <DialogTitle>{homework.title}</DialogTitle>
+
+        <Badge
+          variant={badgeVariantDictionary[homework.priority]}
+          className='rounded-sm font-normal'
+        >
+          {homework.priority}
+        </Badge>
+      </DialogHeader>
+
+      <div className='text-sm space-y-4'>
+        <div className='flex items-center gap-2'>
+          <p>Due to {formatDate(homework.deadline)}</p>
+          <p>-</p>
+          <p>{homework.subject}</p>
+        </div>
+
+        <DialogDescription>{homework.description}</DialogDescription>
+
+        <div className='flex flex-col gap-1.5'>
+          <h4>Links</h4>
+
+          <ul className='flex flex-col gap-0.5 text-muted-foreground'>
+            {homework.links?.map(link => (
+              <a
+                href={link}
+                target='_blank'
+                key={link}
+                className='underline-offset-4 hover:underline'
+              >
+                {link}
+              </a>
+            ))}
+          </ul>
+        </div>
+      </div>
     </DialogContent>
   );
 }

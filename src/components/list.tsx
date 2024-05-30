@@ -25,15 +25,15 @@ export function List() {
       </div>
 
       <ul className='flex flex-col gap-4'>
-        <Dialog>
-          {homeworks.map(homework => (
-            <li key={homework.id}>
+        {homeworks.map(homework => (
+          <li key={homework.id}>
+            <Dialog>
               <HomeworkItem {...homework} />
 
-              <HomeworkInfo />
-            </li>
-          ))}
-        </Dialog>
+              <HomeworkInfo homework={homework} />
+            </Dialog>
+          </li>
+        ))}
       </ul>
     </div>
   );
