@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { Dialog } from './ui/dialog';
 import { Button } from './ui/button';
 import { HomeworkInfo } from './homework-info';
-import { HomeWorkItem } from './homework-item';
+import { HomeworkItem } from './homework-item';
 import { CreateHomework } from './create-homework';
 import { HomeworksContext } from '@/contexts/homeworks';
 
@@ -28,7 +28,7 @@ export function List() {
         <Dialog>
           {homeworks.map(homework => (
             <li key={homework.id}>
-              <HomeWorkItem {...homework} />
+              <HomeworkItem {...homework} />
 
               <HomeworkInfo />
             </li>

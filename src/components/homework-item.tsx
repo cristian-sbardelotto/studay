@@ -26,16 +26,7 @@ type HomeWork = {
   deadline: Date;
 };
 
-// forwardRef problem
-// how to solve:
-// https://www.radix-ui.com/primitives/docs/guides/composition#your-component-must-forward-ref
-// https://github.com/shadcn-ui/ui/issues/373
-
-// const MyButton = forwardRef((props: HomeWork, forwardedRef) => (
-//   <button {...props} ref={forwardedRef} />
-// ));
-
-export const HomeWorkItem = forwardRef(
+export const HomeworkItem = forwardRef(
   ({ title, description, subject, priority, deadline }: HomeWork, ref) => {
     const [isDone, setIsDone] = useState(false);
 
