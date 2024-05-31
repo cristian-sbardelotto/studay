@@ -1,13 +1,16 @@
-import { GithubIcon } from 'lucide-react';
 import { Button } from './ui/button';
+
+import { GithubIcon } from 'lucide-react';
 
 export function Header() {
   return (
     <header className='border-b border-muted'>
       <div className='container px-4 py-7 flex items-center justify-between max-sm:flex-wrap'>
-        <h1 className='text-3xl max-sm:text-2xl font-bold'>
-          stu<span className='text-muted-foreground'>day</span>
-        </h1>
+        <a href='/'>
+          <h1 className='text-3xl max-sm:text-2xl font-bold'>
+            stu<span className='text-muted-foreground'>day</span>
+          </h1>
+        </a>
 
         <Button
           variant='outline'
