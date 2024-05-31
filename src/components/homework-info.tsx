@@ -96,7 +96,7 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
           <Sheet>
             <SheetTrigger asChild>
               <Button
-                className='gap-1 text-muted-foreground'
+                className='gap-1.5 text-muted-foreground px-2.5'
                 variant='ghost'
               >
                 Edit <SquarePenIcon size={16} />
