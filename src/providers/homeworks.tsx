@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 
 import { HomeworksContext } from '@/contexts/homeworks';
-import { Homework } from '@/types';
+import { Homework, HomeworkFields } from '@/types';
 import { homeworksMock } from '@/data/homeworks-mock';
 import { sendGenericToastError } from '@/utils/send-generic-toast-error';
 
@@ -49,11 +49,42 @@ export function HomeworksContextProvider({
     setHomeworks(newHomeworks);
   }
 
+  function editHomework(id: string, data: HomeworkFields) {
+    // const homework = homeworks.find(item => item.id === id);
+
+    // if (!homework) {
+    //   sendGenericToastError();
+    //   return;
+    // }
+
+    // const newHomework = Object.assign(homework, data);
+    // console.log(newHomework);
+    const newHomeworks = homeworks.map(homework => {
+      if (homework.id === id) {
+        homework = {
+          ...data,
+          id: homework.id,
+          done: homework.done,
+        };
+      }
+
+      return homework;
+    });
+
+    setHomeworks(newHomeworks);
+  }
+
   useEffect(() => console.log(homeworks), [homeworks]);
 
   return (
     <HomeworksContext.Provider
-      value={{ homeworks, addHomework, deleteHomework, toggleIsDone }}
+      value={{
+        homeworks,
+        addHomework,
+        deleteHomework,
+        toggleIsDone,
+        editHomework,
+      }}
     >
       {children}
     </HomeworksContext.Provider>

@@ -12,6 +12,8 @@ export type Homework = {
   links?: string[];
 };
 
+export type HomeworkFields = Omit<Homework, 'id' | 'done'>;
+
 export type Priority = 'low' | 'medium' | 'high';
 
 export type FormFields = z.infer<typeof createHomeWorkFormSchema>;

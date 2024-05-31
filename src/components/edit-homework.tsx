@@ -32,7 +32,7 @@ import { Textarea } from './ui/textarea';
 import { format } from 'date-fns';
 import { cn } from '@/utils';
 import { useForm } from 'react-hook-form';
-import { FormFields } from '@/types';
+import { FormFields, HomeworkFields } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { editHomeWorkFormSchema as formSchema } from '@/lib/zod/schemas';
 import { HomeworksContext } from '@/contexts/homeworks';
@@ -45,7 +45,7 @@ type EditHomeworkProps = {
 };
 
 export function EditHomework({ id }: EditHomeworkProps) {
-  const { homeworks } = useContext(HomeworksContext);
+  const { homeworks, editHomework } = useContext(HomeworksContext);
   const homework = homeworks.find(item => item.id === id);
 
   const [links, setLinks] = useState<string[]>(homework?.links || []);
@@ -64,7 +64,16 @@ export function EditHomework({ id }: EditHomeworkProps) {
   });
 
   function onSubmit(values: FormFields) {
-    console.table(values);
+    const data: HomeworkFields = {
+      title: values.title,
+      description: values.description,
+      deadline: values.deadline,
+      priority: values.priority,
+      subject: values.subject,
+      links,
+    };
+
+    editHomework(id, data);
   }
 
   function handleAddLink(newLink: string) {
