@@ -73,14 +73,15 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
           <ul className='flex flex-col gap-0.5 text-muted-foreground'>
             {homework.links ? (
               homework.links.map(link => (
-                <a
-                  href={link}
-                  target='_blank'
-                  key={link}
-                  className='underline-offset-4 hover:underline w-fit'
-                >
-                  {link}
-                </a>
+                <li key={link}>
+                  <a
+                    href={link}
+                    target='_blank'
+                    className='underline-offset-4 hover:underline w-fit'
+                  >
+                    {link}
+                  </a>
+                </li>
               ))
             ) : (
               <p className='text-muted-foreground'>

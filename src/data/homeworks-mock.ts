@@ -10,6 +10,11 @@ export const homeworksMock: Homework[] = [
     priority: 'high',
     subject: 'Física',
     deadline: new Date(),
+    links: [
+      'https://github.com/',
+      'https://linkedin.com/',
+      'https://ui.shadcn.com/docs/components/button#icon',
+    ],
     done: false,
   },
   {

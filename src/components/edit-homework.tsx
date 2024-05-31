@@ -24,6 +24,8 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
+  SheetFooter,
+  SheetClose,
 } from './ui/sheet';
 import { Textarea } from './ui/textarea';
 
@@ -32,22 +34,21 @@ import { cn } from '@/utils';
 import { useForm } from 'react-hook-form';
 import { FormFields } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createHomeWorkFormSchema as formSchema } from '@/lib/zod/schemas';
+import { editHomeWorkFormSchema as formSchema } from '@/lib/zod/schemas';
 import { HomeworksContext } from '@/contexts/homeworks';
 import { removeSpaces } from '@/utils/remove-spaces';
-import { toast } from 'sonner';
 
-import { CalendarIcon } from 'lucide-react';
+import { CalendarIcon, XIcon } from 'lucide-react';
 
 type EditHomeworkProps = {
   id: string;
 };
 
 export function EditHomework({ id }: EditHomeworkProps) {
-  const [links, setLinks] = useState<string[]>([]);
   const { homeworks } = useContext(HomeworksContext);
-
   const homework = homeworks.find(item => item.id === id);
+
+  const [links, setLinks] = useState<string[]>(homework?.links || []);
 
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
@@ -76,16 +77,6 @@ export function EditHomework({ id }: EditHomeworkProps) {
 
     const formattedNewLink = removeSpaces(newLink);
     setLinks(previous => [...previous, formattedNewLink]);
-
-    toast.success(`Successfully added.`, {
-      description: `Link ${formattedNewLink} was added.`,
-      dismissible: true,
-      duration: 3000, // 3 seconds
-      action: {
-        label: 'Undo',
-        onClick: () => handleRemoveLink(newLink),
-      },
-    });
   }
 
   function handleRemoveLink(link: string) {
@@ -94,7 +85,7 @@ export function EditHomework({ id }: EditHomeworkProps) {
   }
 
   return (
-    <SheetContent>
+    <SheetContent className='overflow-y-auto'>
       <SheetHeader>
         <SheetTitle>Edit homework</SheetTitle>
 
@@ -200,7 +191,6 @@ export function EditHomework({ id }: EditHomeworkProps) {
           <FormField
             control={form.control}
             name='deadline'
-            rules={{ required: true }}
             render={({ field }) => (
               <FormItem className='flex flex-col gap-2'>
                 <FormLabel className='w-fit'>Deadline</FormLabel>
@@ -216,11 +206,7 @@ export function EditHomework({ id }: EditHomeworkProps) {
                             !field.value && 'text-muted-foreground'
                           )}
                         >
-                          {field.value ? (
-                            format(field.value, 'PPP')
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
+                          {format(field.value, 'PPP')}
                           <CalendarIcon className='ml-auto size-4 opacity-50' />
                         </Button>
                       </FormControl>
@@ -282,6 +268,41 @@ export function EditHomework({ id }: EditHomeworkProps) {
               </FormItem>
             )}
           />
+
+          <ul className='flex flex-col gap-1.5 text-muted-foreground'>
+            {links.length ? (
+              links.map(link => (
+                <li
+                  className='flex items-center gap-4'
+                  key={link}
+                >
+                  <Button
+                    variant='ghost'
+                    size='icon'
+                    className='size-7 flex-none'
+                  >
+                    <XIcon size={14} />
+                    <span className='sr-only'>Delete</span>
+                  </Button>
+
+                  <p className='text-sm break-all'>{link}</p>
+                </li>
+              ))
+            ) : (
+              <p className='text-muted-foreground'>
+                This homework has no links. If you want to add some, use the{' '}
+                <span className='text-foreground'>Links</span> field.
+              </p>
+            )}
+          </ul>
+
+          <SheetFooter>
+            <SheetClose asChild>
+              <Button variant='destructive'>Cancel</Button>
+            </SheetClose>
+
+            <Button type='submit'>Save changes</Button>
+          </SheetFooter>
         </form>
       </Form>
     </SheetContent>
