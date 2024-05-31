@@ -50,15 +50,6 @@ export function HomeworksContextProvider({
   }
 
   function editHomework(id: string, data: HomeworkFields) {
-    // const homework = homeworks.find(item => item.id === id);
-
-    // if (!homework) {
-    //   sendGenericToastError();
-    //   return;
-    // }
-
-    // const newHomework = Object.assign(homework, data);
-    // console.log(newHomework);
     const newHomeworks = homeworks.map(homework => {
       if (homework.id === id) {
         homework = {
