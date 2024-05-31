@@ -269,32 +269,45 @@ export function EditHomework({ id }: EditHomeworkProps) {
             )}
           />
 
-          <ul className='flex flex-col gap-1.5 text-muted-foreground'>
-            {links.length ? (
-              links.map(link => (
-                <li
-                  className='flex items-center gap-4'
-                  key={link}
-                >
-                  <Button
-                    variant='ghost'
-                    size='icon'
-                    className='size-7 flex-none'
-                  >
-                    <XIcon size={14} />
-                    <span className='sr-only'>Delete</span>
-                  </Button>
+          <div className='flex flex-col gap-1.5'>
+            <h4>Links</h4>
 
-                  <p className='text-sm break-all'>{link}</p>
-                </li>
-              ))
-            ) : (
-              <p className='text-muted-foreground'>
-                This homework has no links. If you want to add some, use the{' '}
-                <span className='text-foreground'>Links</span> field.
-              </p>
-            )}
-          </ul>
+            <ul className='flex flex-col gap-1.5 text-muted-foreground'>
+              {links.length ? (
+                links.map(link => (
+                  <li
+                    className='flex items-center gap-4'
+                    key={link}
+                  >
+                    <Button
+                      variant='ghost'
+                      size='icon'
+                      className='size-7 flex-none'
+                      onClick={() => handleRemoveLink(link)}
+                    >
+                      <XIcon size={14} />
+                      <span className='sr-only'>Delete</span>
+                    </Button>
+
+                    <p className='text-sm break-all'>{link}</p>
+                  </li>
+                ))
+              ) : (
+                <p className='text-muted-foreground text-sm'>
+                  This homework has no links. If you want to add some, use the{' '}
+                  <Button
+                    variant='link'
+                    type='button'
+                    className='text-foreground p-0 h-auto'
+                    onClick={() => form.setFocus('currentLink')}
+                  >
+                    Links
+                  </Button>{' '}
+                  field.
+                </p>
+              )}
+            </ul>
+          </div>
 
           <SheetFooter>
             <SheetClose asChild>
