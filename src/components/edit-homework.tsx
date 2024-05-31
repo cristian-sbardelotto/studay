@@ -37,6 +37,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { editHomeWorkFormSchema as formSchema } from '@/lib/zod/schemas';
 import { HomeworksContext } from '@/contexts/homeworks';
 import { removeSpaces } from '@/utils/remove-spaces';
+import { closeDialog } from '@/utils/close-dialog';
+import { toast } from 'sonner';
 
 import { CalendarIcon, XIcon } from 'lucide-react';
 
@@ -74,6 +76,12 @@ export function EditHomework({ id }: EditHomeworkProps) {
     };
 
     editHomework(id, data);
+
+    closeDialog();
+    toast.success('Homework edited successfully!', {
+      dismissible: true,
+      duration: 3000, // 3 seconds
+    });
   }
 
   function handleAddLink(newLink: string) {
