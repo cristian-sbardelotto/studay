@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import {
@@ -10,14 +11,15 @@ import {
   DialogClose,
 } from './ui/dialog';
 import { Sheet, SheetTrigger } from './ui/sheet';
+import { EditHomework } from './edit-homework';
 
 import { Homework, Priority } from '@/types';
 import { formatDate } from '@/utils/format-date';
+import { closeDialog } from '@/utils/close-dialog';
+import { formatLink } from '@/utils/format-link';
 import { HomeworksContext } from '@/contexts/homeworks';
 
 import { SquarePenIcon, Trash2Icon } from 'lucide-react';
-import { closeDialog } from '@/utils/close-dialog';
-import { EditHomework } from './edit-homework';
 
 type HomeworkInfoProps = {
   homework: Homework;
@@ -76,10 +78,11 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
                 <li key={link}>
                   <a
                     href={link}
+                    title={link}
                     target='_blank'
-                    className='underline-offset-4 hover:underline w-fit'
+                    className='underline-offset-4 hover:underline w-fit break-all'
                   >
-                    {link}
+                    {formatLink(link)}
                   </a>
                 </li>
               ))
