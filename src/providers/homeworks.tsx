@@ -2,17 +2,29 @@ import { ReactNode, useEffect, useState } from 'react';
 
 import { HomeworksContext } from '@/contexts/homeworks';
 import { Homework, HomeworkFields } from '@/types';
-import { homeworksMock } from '@/data/homeworks-mock';
 import { sendGenericToastError } from '@/utils/send-generic-toast-error';
 
 type HomeworksContextProviderProps = {
   children: ReactNode;
 };
 
+const localStorageHomeworks = localStorage.getItem('homeworks') || '[]';
+const unformattedHomeworks = JSON.parse(localStorageHomeworks) as Homework[];
+const initialHomeworks = unformattedHomeworks.map(homework => {
+  return {
+    ...homework,
+    deadline: new Date(homework.deadline),
+  };
+});
+
 export function HomeworksContextProvider({
   children,
 }: HomeworksContextProviderProps) {
-  const [homeworks, setHomeworks] = useState<Homework[]>(homeworksMock);
+  const [homeworks, setHomeworks] = useState<Homework[]>(initialHomeworks);
+
+  useEffect(() => {
+    localStorage.setItem('homeworks', JSON.stringify(homeworks));
+  }, [homeworks]);
 
   function addHomework(homework: Homework) {
     setHomeworks(previous => [...previous, homework]);

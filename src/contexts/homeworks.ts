@@ -1,7 +1,5 @@
 import { createContext } from 'react';
 
-import { homeworksMock } from '@/data/homeworks-mock';
-
 import { Homework, HomeworkFields } from '@/types';
 
 type HomeworksContextProps = {
@@ -13,7 +11,7 @@ type HomeworksContextProps = {
 };
 
 export const HomeworksContext = createContext<HomeworksContextProps>({
-  homeworks: homeworksMock,
+  homeworks: [],
   addHomework: function () {},
   deleteHomework: function () {},
   toggleIsDone: function () {},
