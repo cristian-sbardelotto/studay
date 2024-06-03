@@ -3,19 +3,13 @@ import { ReactNode, useEffect, useState } from 'react';
 import { HomeworksContext } from '@/contexts/homeworks';
 import { Homework, HomeworkFields } from '@/types';
 import { sendGenericToastError } from '@/utils/send-generic-toast-error';
+import { getLocalStorageHomeworks } from '@/utils/get-local-storage-homeworks';
 
 type HomeworksContextProviderProps = {
   children: ReactNode;
 };
 
-const localStorageHomeworks = localStorage.getItem('homeworks') || '[]';
-const unformattedHomeworks = JSON.parse(localStorageHomeworks) as Homework[];
-const initialHomeworks = unformattedHomeworks.map(homework => {
-  return {
-    ...homework,
-    deadline: new Date(homework.deadline),
-  };
-});
+const { homeworks: initialHomeworks } = getLocalStorageHomeworks();
 
 export function HomeworksContextProvider({
   children,
