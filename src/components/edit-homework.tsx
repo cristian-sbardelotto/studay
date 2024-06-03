@@ -325,16 +325,21 @@ export function EditHomework({ id }: EditHomeworkProps) {
               )}
             </ul>
           </div>
-
-          <SheetFooter>
-            <SheetClose asChild>
-              <Button variant='destructive'>Cancel</Button>
-            </SheetClose>
-
-            <Button type='submit'>Save changes</Button>
-          </SheetFooter>
         </form>
       </Form>
+
+      <SheetFooter>
+        <SheetClose asChild>
+          <Button variant='destructive'>Cancel</Button>
+        </SheetClose>
+
+        <Button
+          type='submit'
+          onClick={form.handleSubmit(onSubmit)}
+        >
+          Save changes
+        </Button>
+      </SheetFooter>
     </SheetContent>
   );
 }

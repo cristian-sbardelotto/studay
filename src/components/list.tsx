@@ -1,8 +1,6 @@
 import { useContext } from 'react';
 
-import { Dialog } from './ui/dialog';
 import { Button } from './ui/button';
-import { HomeworkInfo } from './homework-info';
 import { HomeworkItem } from './homework-item';
 import { CreateHomework } from './create-homework';
 import { HomeworksContext } from '@/contexts/homeworks';
@@ -25,15 +23,15 @@ export function List() {
       </div>
 
       <ul className='flex flex-col gap-4'>
-        {homeworks.map(homework => (
-          <li key={homework.id}>
-            <Dialog>
+        {homeworks.length > 0 ? (
+          homeworks.map(homework => (
+            <li key={homework.id}>
               <HomeworkItem {...homework} />
-
-              <HomeworkInfo homework={homework} />
-            </Dialog>
-          </li>
-        ))}
+            </li>
+          ))
+        ) : (
+          <p>You have no homeworks assigned. Consider yourself lucky!</p>
+        )}
       </ul>
     </div>
   );

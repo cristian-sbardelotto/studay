@@ -10,12 +10,12 @@ export const homeworksMock: Homework[] = [
     priority: 'high',
     subject: 'Física',
     deadline: new Date(),
+    done: false,
     links: [
       'https://github.com/',
       'https://linkedin.com/',
       'https://ui.shadcn.com/docs/components/button#icon',
     ],
-    done: false,
   },
   {
     id: randomUUID(),
@@ -26,6 +26,7 @@ export const homeworksMock: Homework[] = [
     subject: 'Matemática',
     deadline: new Date(),
     done: false,
+    links: [],
   },
   {
     id: randomUUID(),
@@ -36,5 +37,6 @@ export const homeworksMock: Homework[] = [
     subject: 'Física',
     deadline: new Date(),
     done: false,
+    links: [],
   },
 ];
