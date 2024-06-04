@@ -61,13 +61,15 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
       </DialogHeader>
 
       <div className='text-sm space-y-4'>
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-2 flex-wrap'>
           <p>Due to {formatDate(homework.deadline)}</p>
           <p>-</p>
-          <p>{homework.subject}</p>
+          <p className='break-all'>{homework.subject}</p>
         </div>
 
-        <DialogDescription>{homework.description}</DialogDescription>
+        <DialogDescription className='break-all'>
+          {homework.description}
+        </DialogDescription>
 
         <div className='flex flex-col gap-1.5'>
           <h4>Links</h4>
