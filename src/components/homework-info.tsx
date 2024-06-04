@@ -18,6 +18,7 @@ import { formatDate } from '@/utils/format-date';
 import { closeDialog } from '@/utils/close-dialog';
 import { formatLink } from '@/utils/format-link';
 import { HomeworksContext } from '@/contexts/homeworks';
+import { toast } from 'sonner';
 
 import { SquarePenIcon, Trash2Icon } from 'lucide-react';
 
@@ -39,7 +40,13 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
 
   function handleDeleteHomework(id: string) {
     deleteHomework(id);
+
     closeDialog();
+
+    toast.success('Homework deleted successfully!', {
+      dismissible: true,
+      duration: 3000, // 3 seconds
+    });
   }
 
   function handleToggleIsDone(id: string) {
