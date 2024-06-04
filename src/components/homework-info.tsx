@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 
-import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import {
   DialogHeader,
@@ -12,8 +11,9 @@ import {
 } from './ui/dialog';
 import { Sheet, SheetTrigger } from './ui/sheet';
 import { EditHomework } from './edit-homework';
+import { PriorityBadge } from './priority-badge';
 
-import { Homework, Priority } from '@/types';
+import { Homework } from '@/types';
 import { formatDate } from '@/utils/format-date';
 import { closeDialog } from '@/utils/close-dialog';
 import { formatLink } from '@/utils/format-link';
@@ -28,15 +28,6 @@ type HomeworkInfoProps = {
 
 export function HomeworkInfo({ homework }: HomeworkInfoProps) {
   const { deleteHomework, toggleIsDone } = useContext(HomeworksContext);
-
-  const badgeVariantDictionary: Record<
-    Priority,
-    'success' | 'secondary' | 'destructive'
-  > = {
-    low: 'success',
-    medium: 'secondary',
-    high: 'destructive',
-  };
 
   function handleDeleteHomework(id: string) {
     deleteHomework(id);
@@ -59,12 +50,13 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
       <DialogHeader className='pr-4 flex flex-row gap-8 items-center space-y-0'>
         <DialogTitle>{homework.title}</DialogTitle>
 
-        <Badge
+        {/* <Badge
           variant={badgeVariantDictionary[homework.priority]}
           className='rounded-sm font-normal'
         >
           {homework.priority}
-        </Badge>
+        </Badge> */}
+        <PriorityBadge priority={homework.priority} />
       </DialogHeader>
 
       <div className='text-sm space-y-4'>

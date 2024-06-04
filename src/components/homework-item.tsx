@@ -1,6 +1,5 @@
 import { LegacyRef, forwardRef } from 'react';
 
-import { Badge } from './ui/badge';
 import {
   Card,
   CardContent,
@@ -11,10 +10,11 @@ import {
 import { Separator } from './ui/separator';
 import { Dialog, DialogTrigger } from './ui/dialog';
 import { HomeworkInfo } from './homework-info';
+import { PriorityBadge } from './priority-badge';
 
 import { twMerge } from 'tailwind-merge';
 import { formatRelativeDate } from '@/utils/format-date';
-import { Homework, Priority } from '@/types';
+import { Homework } from '@/types';
 
 export const HomeworkItem = forwardRef(
   (
@@ -30,15 +30,6 @@ export const HomeworkItem = forwardRef(
     }: Homework,
     ref
   ) => {
-    const badgeVariantDictionary: Record<
-      Priority,
-      'success' | 'secondary' | 'destructive'
-    > = {
-      low: 'success',
-      medium: 'secondary',
-      high: 'destructive',
-    };
-
     return (
       <Dialog>
         <DialogTrigger
@@ -72,12 +63,10 @@ export const HomeworkItem = forwardRef(
                 </CardContent>
               </div>
 
-              <Badge
-                variant={badgeVariantDictionary[priority]}
-                className='rounded-sm max-sm:py-[0.075rem] max-sm:px-[0.375rem]'
-              >
-                {priority}
-              </Badge>
+              <PriorityBadge
+                priority={priority}
+                size='sm'
+              />
             </CardHeader>
 
             <CardFooter className='flex items-center justify-between max-md:p-3 max-md:pt-0 max-md:flex-col max-md:items-start max-md:gap-4'>
