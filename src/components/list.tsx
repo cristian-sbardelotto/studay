@@ -30,7 +30,9 @@ export function List() {
             </li>
           ))
         ) : (
-          <p>You have no homeworks assigned. Consider yourself lucky!</p>
+          <p className='text-muted-foreground'>
+            You have no homeworks assigned. Consider yourself lucky!
+          </p>
         )}
       </ul>
     </div>
