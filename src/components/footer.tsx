@@ -1,4 +1,10 @@
 import { Button } from './ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './ui/tooltip';
 
 import { GithubIcon, LinkedinIcon, MailIcon } from 'lucide-react';
 
@@ -25,53 +31,79 @@ export function Footer() {
 
         <nav>
           <ul className='flex h-6 items-center gap-3 text-muted-foreground'>
-            <li>
-              <Button
-                asChild
-                variant='outline'
-                size='icon'
-                className='py-0.5 px-2'
-              >
-                <a
-                  href='https://github.com/cristian-sbardelotto'
-                  target='_blank'
-                >
-                  <GithubIcon size={18} />
-                </a>
-              </Button>
-            </li>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <li>
+                    <Button
+                      asChild
+                      variant='outline'
+                      size='icon'
+                      className='py-0.5 px-2'
+                    >
+                      <a
+                        href='https://github.com/cristian-sbardelotto'
+                        target='_blank'
+                      >
+                        <GithubIcon size={18} />
+                      </a>
+                    </Button>
+                  </li>
+                </TooltipTrigger>
 
-            <li>
-              <Button
-                asChild
-                variant='outline'
-                size='icon'
-                className='py-0.5 px-2'
-              >
-                <a
-                  href='https://linkedin.com/in/cristian-k-sbardelotto'
-                  target='_blank'
-                >
-                  <LinkedinIcon size={18} />
-                </a>
-              </Button>
-            </li>
+                <TooltipContent>
+                  <p>Github</p>
+                </TooltipContent>
+              </Tooltip>
 
-            <li>
-              <Button
-                asChild
-                variant='outline'
-                size='icon'
-                className='py-0.5 px-2'
-              >
-                <a
-                  href='https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=cristian.k.sbardelotto@gmail.com'
-                  target='_blank'
-                >
-                  <MailIcon size={18} />
-                </a>
-              </Button>
-            </li>
+              <Tooltip>
+                <TooltipTrigger>
+                  <li>
+                    <Button
+                      asChild
+                      variant='outline'
+                      size='icon'
+                      className='py-0.5 px-2'
+                    >
+                      <a
+                        href='https://linkedin.com/in/cristian-k-sbardelotto'
+                        target='_blank'
+                      >
+                        <LinkedinIcon size={18} />
+                      </a>
+                    </Button>
+                  </li>
+                </TooltipTrigger>
+
+                <TooltipContent>
+                  <p>LinkedIn</p>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger>
+                  <li>
+                    <Button
+                      asChild
+                      variant='outline'
+                      size='icon'
+                      className='py-0.5 px-2'
+                    >
+                      <a
+                        href='https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=cristian.k.sbardelotto@gmail.com'
+                        target='_blank'
+                      >
+                        <MailIcon size={18} />
+                      </a>
+                    </Button>
+                  </li>
+                </TooltipTrigger>
+
+                <TooltipContent>
+                  <p>Gmail</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </ul>
         </nav>
       </div>
