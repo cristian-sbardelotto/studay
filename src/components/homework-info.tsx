@@ -50,12 +50,6 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
       <DialogHeader className='pr-4 flex flex-row gap-8 items-center space-y-0'>
         <DialogTitle>{homework.title}</DialogTitle>
 
-        {/* <Badge
-          variant={badgeVariantDictionary[homework.priority]}
-          className='rounded-sm font-normal'
-        >
-          {homework.priority}
-        </Badge> */}
         <PriorityBadge priority={homework.priority} />
       </DialogHeader>
 
