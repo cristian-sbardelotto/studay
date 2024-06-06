@@ -10,6 +10,12 @@ import {
   DialogClose,
 } from './ui/dialog';
 import { Sheet, SheetTrigger } from './ui/sheet';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './ui/tooltip';
 import { EditHomework } from './edit-homework';
 import { PriorityBadge } from './priority-badge';
 
@@ -105,14 +111,21 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
           </Sheet>
 
           <div className='flex gap-2'>
-            <Button
-              className='px-3 max-sm:flex-1'
-              variant='destructive'
-              onClick={() => handleDeleteHomework(homework.id)}
-            >
-              <Trash2Icon size={16} />
-              <span className='sr-only'>Delete</span>
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    className='px-3 max-sm:flex-1'
+                    variant='destructive'
+                    onClick={() => handleDeleteHomework(homework.id)}
+                  >
+                    <Trash2Icon size={16} />
+                  </Button>
+                </TooltipTrigger>
+
+                <TooltipContent>Delete</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
 
             <Button
               className='max-sm:flex-1'

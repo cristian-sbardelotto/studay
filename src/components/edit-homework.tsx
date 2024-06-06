@@ -28,6 +28,12 @@ import {
   SheetClose,
 } from './ui/sheet';
 import { Textarea } from './ui/textarea';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './ui/tooltip';
 
 import { format } from 'date-fns';
 import { cn } from '@/utils';
@@ -296,15 +302,24 @@ export function EditHomework({ id }: EditHomeworkProps) {
                     className='flex items-center gap-4'
                     key={link}
                   >
-                    <Button
-                      variant='ghost'
-                      size='icon'
-                      className='size-7 flex-none'
-                      onClick={() => handleRemoveLink(link)}
-                    >
-                      <XIcon size={14} />
-                      <span className='sr-only'>Delete</span>
-                    </Button>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Button
+                            variant='ghost'
+                            size='icon'
+                            className='size-7 flex-none'
+                            onClick={() => handleRemoveLink(link)}
+                          >
+                            <XIcon size={14} />
+                          </Button>
+                        </TooltipTrigger>
+
+                        <TooltipContent>
+                          <p>Delete</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
 
                     <p className='text-sm break-all'>{link}</p>
                   </li>
