@@ -66,7 +66,7 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
           <p className='break-all'>{homework.subject}</p>
         </div>
 
-        <DialogDescription className='break-all'>
+        <DialogDescription className='break-words'>
           {homework.description}
         </DialogDescription>
 
@@ -76,14 +76,14 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
           <ul className='flex flex-col gap-0.5 text-muted-foreground'>
             {homework.links?.length ? (
               homework.links.map(link => (
-                <li key={link}>
+                <li key={link.id}>
                   <a
-                    href={link}
-                    title={link}
+                    href={link.url}
+                    title={link.url}
                     target='_blank'
                     className='underline-offset-4 hover:underline w-fit break-all'
                   >
-                    {formatLink(link)}
+                    {formatLink(link.url)}
                   </a>
                 </li>
               ))

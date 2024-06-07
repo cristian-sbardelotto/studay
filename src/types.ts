@@ -1,6 +1,11 @@
 import { z } from 'zod';
 import { createHomeWorkFormSchema } from './lib/zod/schemas';
 
+export type Link = {
+  url: string;
+  id: string;
+};
+
 export type Homework = {
   id: string;
   title: string;
@@ -9,7 +14,7 @@ export type Homework = {
   deadline: Date;
   done: boolean;
   priority: 'low' | 'medium' | 'high';
-  links?: string[];
+  links?: Link[];
 };
 
 export type HomeworkFields = Omit<Homework, 'id' | 'done'>;

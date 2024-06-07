@@ -39,7 +39,7 @@ import { format } from 'date-fns';
 import { cn } from '@/utils';
 import { removeSpaces } from '@/utils/remove-spaces';
 import { closeDialog } from '@/utils/close-dialog';
-import { FormFields, Homework } from '@/types';
+import { FormFields, Homework, Link } from '@/types';
 import { HomeworksContext } from '@/contexts/homeworks';
 import { v4 as randomUUID } from 'uuid';
 import { toast } from 'sonner';
@@ -51,7 +51,7 @@ type CreateHomeworkProps = {
 };
 
 export function CreateHomework({ children }: CreateHomeworkProps) {
-  const [links, setLinks] = useState<string[]>([]);
+  const [links, setLinks] = useState<Link[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const { addHomework } = useContext(HomeworksContext);
@@ -106,23 +106,17 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
 
     form.resetField('currentLink');
 
-    const formattedNewLink = removeSpaces(newLink);
+    const formattedNewLink: Link = {
+      id: randomUUID(),
+      url: removeSpaces(newLink),
+    };
     setLinks(previous => [...previous, formattedNewLink]);
 
     toast.success(`Successfully added.`, {
-      description: `Link ${formattedNewLink} was added.`,
+      description: `Link ${formattedNewLink.url} was added.`,
       dismissible: true,
       duration: 3000, // 3 seconds
-      action: {
-        label: 'Undo',
-        onClick: () => handleRemoveLink(newLink),
-      },
     });
-  }
-
-  function handleRemoveLink(link: string) {
-    const newLinks = links.filter(item => item !== link);
-    setLinks(newLinks);
   }
 
   return (

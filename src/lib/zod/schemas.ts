@@ -25,7 +25,13 @@ export const createHomeWorkFormSchema = z.object({
     .url('This is not a valid URL!')
     .optional()
     .or(z.literal('')),
-  links: z.string().url('This is not a valid URL!').optional().array(),
+  links: z
+    .object({
+      url: z.string().url('This is not a valid URL!'),
+      id: z.string().uuid(),
+    })
+    .optional()
+    .array(),
 });
 
 export const editHomeWorkFormSchema = z.object({
@@ -45,5 +51,11 @@ export const editHomeWorkFormSchema = z.object({
     .url('This is not a valid URL!')
     .optional()
     .or(z.literal('')),
-  links: z.string().url('This is not a valid URL!').optional().array(),
+  links: z
+    .object({
+      url: z.string().url('This is not a valid URL!'),
+      id: z.string().uuid(),
+    })
+    .optional()
+    .array(),
 });

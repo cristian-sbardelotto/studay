@@ -38,13 +38,14 @@ import {
 import { format } from 'date-fns';
 import { cn } from '@/utils';
 import { useForm } from 'react-hook-form';
-import { FormFields, HomeworkFields } from '@/types';
+import { FormFields, HomeworkFields, Link } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { editHomeWorkFormSchema as formSchema } from '@/lib/zod/schemas';
 import { HomeworksContext } from '@/contexts/homeworks';
 import { removeSpaces } from '@/utils/remove-spaces';
 import { closeDialog } from '@/utils/close-dialog';
 import { toast } from 'sonner';
+import { v4 as randomUUID } from 'uuid';
 
 import { CalendarIcon, XIcon } from 'lucide-react';
 
@@ -56,7 +57,7 @@ export function EditHomework({ id }: EditHomeworkProps) {
   const { homeworks, editHomework } = useContext(HomeworksContext);
   const homework = homeworks.find(item => item.id === id);
 
-  const [links, setLinks] = useState<string[]>(homework?.links || []);
+  const [links, setLinks] = useState<Link[]>(homework?.links || []);
 
   const form = useForm<FormFields>({
     resolver: zodResolver(formSchema),
@@ -99,11 +100,14 @@ export function EditHomework({ id }: EditHomeworkProps) {
     form.resetField('currentLink');
 
     const formattedNewLink = removeSpaces(newLink);
-    setLinks(previous => [...previous, formattedNewLink]);
+    setLinks(previous => [
+      ...previous,
+      { id: randomUUID(), url: formattedNewLink },
+    ]);
   }
 
-  function handleRemoveLink(link: string) {
-    const newLinks = links.filter(item => item !== link);
+  function handleRemoveLink(id: string) {
+    const newLinks = links.filter(item => item.id !== id);
     setLinks(newLinks);
   }
 
@@ -300,7 +304,7 @@ export function EditHomework({ id }: EditHomeworkProps) {
                 links.map(link => (
                   <li
                     className='flex items-center gap-4'
-                    key={link}
+                    key={link.id}
                   >
                     <TooltipProvider>
                       <Tooltip>
@@ -309,7 +313,7 @@ export function EditHomework({ id }: EditHomeworkProps) {
                             variant='ghost'
                             size='icon'
                             className='size-7 flex-none'
-                            onClick={() => handleRemoveLink(link)}
+                            onClick={() => handleRemoveLink(link.id)}
                           >
                             <XIcon size={14} />
                           </Button>
@@ -321,7 +325,7 @@ export function EditHomework({ id }: EditHomeworkProps) {
                       </Tooltip>
                     </TooltipProvider>
 
-                    <p className='text-sm break-all'>{link}</p>
+                    <p className='text-sm break-all'>{link.url}</p>
                   </li>
                 ))
               ) : (
