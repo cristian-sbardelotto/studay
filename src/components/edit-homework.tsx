@@ -99,11 +99,22 @@ export function EditHomework({ id }: EditHomeworkProps) {
 
     form.resetField('currentLink');
 
-    const formattedNewLink = removeSpaces(newLink);
-    setLinks(previous => [
-      ...previous,
-      { id: randomUUID(), url: formattedNewLink },
-    ]);
+    const isAlreadyCreated = links.some(link => link.url === newLink);
+    if (isAlreadyCreated) {
+      toast('This link was already created!', {
+        position: 'bottom-left',
+        dismissible: true,
+        duration: 3000, // 3 seconds
+      });
+
+      return;
+    }
+
+    const formattedNewLink = {
+      id: randomUUID(),
+      url: removeSpaces(newLink),
+    };
+    setLinks(previous => [...previous, formattedNewLink]);
   }
 
   function handleRemoveLink(id: string) {

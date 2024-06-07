@@ -41,6 +41,7 @@ import { removeSpaces } from '@/utils/remove-spaces';
 import { closeDialog } from '@/utils/close-dialog';
 import { FormFields, Homework, Link } from '@/types';
 import { HomeworksContext } from '@/contexts/homeworks';
+import { removeRepeatedLinks } from '@/utils/remove-repeated-links';
 import { v4 as randomUUID } from 'uuid';
 import { toast } from 'sonner';
 
@@ -72,6 +73,8 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
   function onSubmit(values: FormFields) {
     setIsLoading(true);
 
+    const filteredLinks = removeRepeatedLinks(links);
+
     setTimeout(() => {
       const data: Homework = {
         id: randomUUID(),
@@ -81,13 +84,14 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
         priority: values.priority,
         deadline: values.deadline,
         done: false,
-        links,
+        links: filteredLinks,
       };
 
       addHomework(data);
 
       form.reset();
       setIsLoading(false);
+      setLinks([]);
       closeDialog();
 
       toast.success('Homework created successfully!', {
