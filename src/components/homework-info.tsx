@@ -113,7 +113,7 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
           <div className='flex gap-2'>
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger asChild>
                   <Button
                     className='px-3 max-sm:flex-1'
                     variant='destructive'
