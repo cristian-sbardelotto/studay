@@ -308,7 +308,7 @@ export function EditHomework({ id }: EditHomeworkProps) {
                   >
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger asChild>
                           <Button
                             variant='ghost'
                             size='icon'
