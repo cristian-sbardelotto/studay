@@ -215,14 +215,18 @@ export function CreateHomework({ children }: CreateHomeworkProps) {
               name='priority'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Priority</FormLabel>
+                  <FormLabel htmlFor='priority'>Priority</FormLabel>
 
                   <FormControl>
                     <Select
                       onValueChange={field.onChange}
                       value={field.value}
+                      name='priority'
                     >
-                      <SelectTrigger className='w-[180px]'>
+                      <SelectTrigger
+                        id='priority'
+                        className='w-[180px]'
+                      >
                         <SelectValue placeholder='Priority' />
                       </SelectTrigger>
 

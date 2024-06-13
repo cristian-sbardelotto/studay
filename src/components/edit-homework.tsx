@@ -202,14 +202,18 @@ export function EditHomework({ id }: EditHomeworkProps) {
             name='priority'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Priority</FormLabel>
+                <FormLabel htmlFor='priority'>Priority</FormLabel>
 
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value}
+                    name='priority'
                   >
-                    <SelectTrigger className='w-[180px]'>
+                    <SelectTrigger
+                      id='priority'
+                      className='w-[180px]'
+                    >
                       <SelectValue placeholder='Priority' />
                     </SelectTrigger>
 
@@ -233,35 +237,33 @@ export function EditHomework({ id }: EditHomeworkProps) {
               <FormItem className='flex flex-col gap-2'>
                 <FormLabel className='w-fit'>Deadline</FormLabel>
 
-                <FormControl>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant='outline'
-                          className={cn(
-                            'pl-3 text-left font-normal',
-                            !field.value && 'text-muted-foreground'
-                          )}
-                        >
-                          {format(field.value, 'PPP')}
-                          <CalendarIcon className='ml-auto size-4 opacity-50' />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent
-                      className='w-auto p-0'
-                      align='start'
-                    >
-                      <Calendar
-                        mode='single'
-                        disabled={date => date < new Date()}
-                        selected={field.value}
-                        onSelect={field.onChange}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </FormControl>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant='outline'
+                        className={cn(
+                          'pl-3 text-left font-normal',
+                          !field.value && 'text-muted-foreground'
+                        )}
+                      >
+                        {format(field.value, 'PPP')}
+                        <CalendarIcon className='ml-auto size-4 opacity-50' />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className='w-auto p-0'
+                    align='start'
+                  >
+                    <Calendar
+                      mode='single'
+                      disabled={date => date < new Date()}
+                      selected={field.value}
+                      onSelect={field.onChange}
+                    />
+                  </PopoverContent>
+                </Popover>
 
                 <FormMessage />
               </FormItem>
