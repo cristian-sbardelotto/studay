@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import { Button } from './ui/button';
 import { HomeworkItem } from './homework-item';
 import { CreateHomework } from './create-homework';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+
 import { HomeworksContext } from '@/contexts/homeworks';
 
 import { PlusCircleIcon } from 'lucide-react';
@@ -22,19 +24,32 @@ export function List() {
         </CreateHomework>
       </div>
 
-      <ul className='flex flex-col gap-4'>
-        {homeworks.length > 0 ? (
-          homeworks.map(homework => (
-            <li key={homework.id}>
-              <HomeworkItem {...homework} />
-            </li>
-          ))
-        ) : (
-          <p className='text-muted-foreground'>
-            You have no homeworks assigned. Consider yourself lucky!
-          </p>
-        )}
-      </ul>
+      {homeworks.length > 0 ? (
+        <Tabs defaultValue='all'>
+          <TabsList>
+            <TabsTrigger value='all'>All</TabsTrigger>
+            <TabsTrigger value='pending'>Pending</TabsTrigger>
+            <TabsTrigger value='done'>Done</TabsTrigger>
+          </TabsList>
+          <TabsContent value='all'>
+            <ul className='flex flex-col gap-4'>
+              {homeworks.map(homework => (
+                <li key={homework.id}>
+                  <HomeworkItem {...homework} />
+                </li>
+              ))}
+            </ul>
+          </TabsContent>
+          <TabsContent value='pending'>Change your password here.</TabsContent>
+          <TabsContent value='done'>
+            Here are all the things you've done.
+          </TabsContent>
+        </Tabs>
+      ) : (
+        <p className='text-muted-foreground'>
+          You have no homeworks assigned. Consider yourself lucky!
+        </p>
+      )}
     </div>
   );
 }
