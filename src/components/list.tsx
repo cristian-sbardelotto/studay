@@ -26,7 +26,7 @@ export function List() {
 
       {homeworks.length > 0 ? (
         <Tabs defaultValue='all'>
-          <TabsList>
+          <TabsList className='mb-4'>
             <TabsTrigger value='all'>All</TabsTrigger>
             <TabsTrigger value='pending'>Pending</TabsTrigger>
             <TabsTrigger value='done'>Done</TabsTrigger>
@@ -40,9 +40,27 @@ export function List() {
               ))}
             </ul>
           </TabsContent>
-          <TabsContent value='pending'>Change your password here.</TabsContent>
+          <TabsContent value='pending'>
+            <ul className='flex flex-col gap-4'>
+              {homeworks
+                .filter(homework => !homework.done)
+                .map(homework => (
+                  <li key={homework.id}>
+                    <HomeworkItem {...homework} />
+                  </li>
+                ))}
+            </ul>
+          </TabsContent>
           <TabsContent value='done'>
-            Here are all the things you've done.
+            <ul className='flex flex-col gap-4'>
+              {homeworks
+                .filter(homework => homework.done)
+                .map(homework => (
+                  <li key={homework.id}>
+                    <HomeworkItem {...homework} />
+                  </li>
+                ))}
+            </ul>
           </TabsContent>
         </Tabs>
       ) : (
