@@ -1,19 +1,15 @@
 import { useContext } from 'react';
 
 import { Button } from './ui/button';
-import { HomeworkItem } from './homework-item';
 import { CreateHomework } from './create-homework';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 
 import { HomeworksContext } from '@/contexts/homeworks';
 
 import { PlusCircleIcon } from 'lucide-react';
+import { HomeworksFilter } from './homeworks-filter';
 
 export function List() {
   const { homeworks } = useContext(HomeworksContext);
-
-  const pendingHomeworks = homeworks.filter(homework => !homework.done);
-  const doneHomeworks = homeworks.filter(homework => homework.done);
 
   return (
     <div className='space-y-5'>
@@ -28,52 +24,7 @@ export function List() {
       </div>
 
       {homeworks.length > 0 ? (
-        <Tabs defaultValue='all'>
-          <TabsList className='mb-4'>
-            <TabsTrigger value='all'>All</TabsTrigger>
-            <TabsTrigger value='pending'>Pending</TabsTrigger>
-            <TabsTrigger value='done'>Done</TabsTrigger>
-          </TabsList>
-          <TabsContent value='all'>
-            <ul className='flex flex-col gap-4'>
-              {homeworks.map(homework => (
-                <li key={homework.id}>
-                  <HomeworkItem {...homework} />
-                </li>
-              ))}
-            </ul>
-          </TabsContent>
-          <TabsContent value='pending'>
-            <ul className='flex flex-col gap-4'>
-              {pendingHomeworks.length > 0 ? (
-                pendingHomeworks.map(homework => (
-                  <li key={homework.id}>
-                    <HomeworkItem {...homework} />
-                  </li>
-                ))
-              ) : (
-                <p className='text-muted-foreground'>
-                  You have no homeworks assigned. Consider yourself lucky!
-                </p>
-              )}
-            </ul>
-          </TabsContent>
-          <TabsContent value='done'>
-            <ul className='flex flex-col gap-4'>
-              {doneHomeworks.length > 0 ? (
-                doneHomeworks.map(homework => (
-                  <li key={homework.id}>
-                    <HomeworkItem {...homework} />
-                  </li>
-                ))
-              ) : (
-                <p className='text-muted-foreground'>
-                  You have no homeworks assigned. Consider yourself lucky!
-                </p>
-              )}
-            </ul>
-          </TabsContent>
-        </Tabs>
+        <HomeworksFilter homeworks={homeworks} />
       ) : (
         <p className='text-muted-foreground'>
           You have no homeworks assigned. Consider yourself lucky!
