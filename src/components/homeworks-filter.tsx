@@ -9,7 +9,12 @@ type HomeworksFilterProps = {
 };
 
 export function HomeworksFilter({ homeworks }: HomeworksFilterProps) {
-  const { doneHomeworks, pendingHomeworks } = filterHomeworks(homeworks);
+  const {
+    doneHomeworks,
+    pendingHomeworks,
+    prioritySortedHomeworks,
+    deadlineSortedHomeworks,
+  } = filterHomeworks(homeworks);
 
   return (
     <Tabs defaultValue='all'>
@@ -17,6 +22,8 @@ export function HomeworksFilter({ homeworks }: HomeworksFilterProps) {
         <TabsTrigger value='all'>All</TabsTrigger>
         <TabsTrigger value='pending'>Pending</TabsTrigger>
         <TabsTrigger value='done'>Done</TabsTrigger>
+        <TabsTrigger value='sort-priority'>Priority</TabsTrigger>
+        <TabsTrigger value='sort-deadline'>Deadline</TabsTrigger>
       </TabsList>
       <TabsContent value='all'>
         <ul className='flex flex-col gap-4'>
@@ -53,6 +60,25 @@ export function HomeworksFilter({ homeworks }: HomeworksFilterProps) {
               You haven't finished any of your homework yet.
             </p>
           )}
+        </ul>
+      </TabsContent>
+      <TabsContent value='sort-priority'>
+        <ul className='flex flex-col gap-4'>
+          {prioritySortedHomeworks.map(homework => (
+            <li key={homework.id}>
+              <HomeworkItem {...homework} />
+            </li>
+          ))}
+        </ul>
+      </TabsContent>
+
+      <TabsContent value='sort-deadline'>
+        <ul className='flex flex-col gap-4'>
+          {deadlineSortedHomeworks.map(homework => (
+            <li key={homework.id}>
+              <HomeworkItem {...homework} />
+            </li>
+          ))}
         </ul>
       </TabsContent>
     </Tabs>
