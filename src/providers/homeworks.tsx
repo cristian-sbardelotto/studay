@@ -71,8 +71,6 @@ export function HomeworksContextProvider({
     setHomeworks(newHomeworks);
   }
 
-  useEffect(() => console.log(homeworks), [homeworks]);
-
   return (
     <HomeworksContext.Provider
       value={{
