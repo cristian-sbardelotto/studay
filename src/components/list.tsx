@@ -12,6 +12,9 @@ import { PlusCircleIcon } from 'lucide-react';
 export function List() {
   const { homeworks } = useContext(HomeworksContext);
 
+  const pendingHomeworks = homeworks.filter(homework => !homework.done);
+  const doneHomeworks = homeworks.filter(homework => homework.done);
+
   return (
     <div className='space-y-5'>
       <div className='flex items-center justify-between'>
@@ -42,24 +45,32 @@ export function List() {
           </TabsContent>
           <TabsContent value='pending'>
             <ul className='flex flex-col gap-4'>
-              {homeworks
-                .filter(homework => !homework.done)
-                .map(homework => (
+              {pendingHomeworks.length > 0 ? (
+                pendingHomeworks.map(homework => (
                   <li key={homework.id}>
                     <HomeworkItem {...homework} />
                   </li>
-                ))}
+                ))
+              ) : (
+                <p className='text-muted-foreground'>
+                  You have no homeworks assigned. Consider yourself lucky!
+                </p>
+              )}
             </ul>
           </TabsContent>
           <TabsContent value='done'>
             <ul className='flex flex-col gap-4'>
-              {homeworks
-                .filter(homework => homework.done)
-                .map(homework => (
+              {doneHomeworks.length > 0 ? (
+                doneHomeworks.map(homework => (
                   <li key={homework.id}>
                     <HomeworkItem {...homework} />
                   </li>
-                ))}
+                ))
+              ) : (
+                <p className='text-muted-foreground'>
+                  You have no homeworks assigned. Consider yourself lucky!
+                </p>
+              )}
             </ul>
           </TabsContent>
         </Tabs>
