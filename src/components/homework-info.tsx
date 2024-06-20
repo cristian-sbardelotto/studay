@@ -54,7 +54,7 @@ export function HomeworkInfo({ homework }: HomeworkInfoProps) {
   return (
     <DialogContent className='border-muted outline-none'>
       <DialogHeader className='pr-4 flex flex-row gap-8 items-center space-y-0'>
-        <DialogTitle>{homework.title}</DialogTitle>
+        <DialogTitle className='break-all'>{homework.title}</DialogTitle>
 
         <PriorityBadge priority={homework.priority} />
       </DialogHeader>

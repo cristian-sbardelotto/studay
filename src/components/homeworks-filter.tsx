@@ -18,7 +18,7 @@ export function HomeworksFilter({ homeworks }: HomeworksFilterProps) {
 
   return (
     <Tabs defaultValue='all'>
-      <TabsList className='mb-4'>
+      <TabsList className='mb-4 flex-wrap h-auto max-sm:w-full max-sm:justify-start'>
         <TabsTrigger value='all'>All</TabsTrigger>
         <TabsTrigger value='pending'>Pending</TabsTrigger>
         <TabsTrigger value='done'>Done</TabsTrigger>

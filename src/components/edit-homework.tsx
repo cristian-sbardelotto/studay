@@ -138,7 +138,7 @@ export function EditHomework({ id }: EditHomeworkProps) {
           onSubmit={form.handleSubmit(onSubmit)}
           className='grid gap-4 py-4 max-sm:gap-1'
         >
-          <div className='flex gap-3'>
+          <div className='flex gap-3 max-sm:flex-col'>
             <FormField
               control={form.control}
               name='title'
@@ -282,7 +282,7 @@ export function EditHomework({ id }: EditHomeworkProps) {
                 </FormLabel>
 
                 <FormControl>
-                  <div className='flex gap-2'>
+                  <div className='flex gap-2 max-sm:flex-col'>
                     <Input
                       placeholder='https://useful-link.com'
                       id='currentLink'
