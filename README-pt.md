@@ -2,29 +2,29 @@
   
 # 🎒 Studay
 
-[README PT-BR](./README-pt.md)
+[README EN](./README.md)
 
-Welcome to [Studay!](https://quizzed-five.vercel.app/)
+Bem vindo ao [Studay!](https://quizzed-five.vercel.app/)
 
-This is a website where you can create a list of homework, using it to manage, view and filter information and get ready for the student's routine.
+Esse é um website onde você pode criar uma lista de temas de casa, sendo usado para gerenciar, visualizar e filtrar informações e se preparar para sua rotina de estudante.
 
-In the homework information, you can find its title, description, deadline, priority, and also add some useful links for your work!
+Nas informações do tema, você pode checar o título, descrição, prazo de entrega, prioridade, e também adicionar alguns links úteis para o seu trabalho!
 
-Is it a **study day**? Nah, it is **Studay!**
+É um **study day**? Não, é **Studay!**
 
-> ⚠️ Feel free to [contact me](https://portfolio-chi-lemon-51.vercel.app/contact), and share your **_feedback_** and **_insights_**, or report a **_bug_**!
+> ⚠️ Sinta-se livre para [me contatar](https://portfolio-chi-lemon-51.vercel.app/contact), e compartilhar seu **_feedback_** e **_insights_**, ou reportar um **_bug_**!
 
 <p>
-  <a href="#technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#learning">What I've Learned</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#technologies">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#learning">O que eu aprendi</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#deploy">Deploy</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 
 <div id='technologies'></div>
 
-## 🛠️ Technologies
+## 🛠️ Tecnologias
 
-This project was made with the following technologies/libraries:
+Esse projeto foi feito com as seguintes tecnologias/bibliotecas:
 
 - Typescript
 - React
@@ -39,22 +39,22 @@ This project was made with the following technologies/libraries:
 
 <div id='learning'></div>
 
-## 🧠 What I've Learned
+## 🧠 O que eu aprendi
 
-During the development, I've discovered new things, such as:
+Durante o desenvolvimento, eu descobri novas coisas, como:
 
-- Better usage of [Context API](https://react.dev/reference/react/hooks#context-hooks).
-- [Shadcn/ui](https://ui.shadcn.com/) + [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) integration.
+- Melhor utilização da [Context API](https://react.dev/reference/react/hooks#context-hooks).
+- Integração do [shadcn/ui](https://ui.shadcn.com/) + [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/).
 
 <div id='deploy'></div>
 
 ## 🌎 Deploy
 
-To check out the deploy, access https://studay-alpha.vercel.app/
+Para conferir o deploy, acesse https://studay-alpha.vercel.app/
 
-## Enjoy this project!
+## Aproveite o projeto!
 
-Developed with 🧡 by **Cristian Sbardelotto**.
+Desenvolvido com 🧡 por **Cristian Sbardelotto**.
 
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/cristian-k-sbardelotto/)
 [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cristian-sbardelotto)
