@@ -4,7 +4,7 @@
 
 [README EN](./README.md)
 
-Bem vindo ao [Studay!](https://quizzed-five.vercel.app/)
+Bem vindo ao [Studay!](https://studay-alpha.vercel.app/)
 
 Esse é um website onde você pode criar uma lista de temas de casa, sendo usado para gerenciar, visualizar e filtrar informações e se preparar para sua rotina de estudante.
 
