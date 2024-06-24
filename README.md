@@ -4,7 +4,7 @@
 
 [README PT-BR](./README-pt.md)
 
-Welcome to [Studay!](https://quizzed-five.vercel.app/)
+Welcome to [Studay!](https://studay-alpha.vercel.app/)
 
 This is a website where you can create a list of homework, using it to manage, view and filter information and get ready for the student's routine.
 
